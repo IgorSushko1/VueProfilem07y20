@@ -1,100 +1,26 @@
 <template>
   <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div v-show="!confirm" class="text-center">
-        <logo />
-        <vuetify-logo :alt="description" />
-      </div>
-      <v-card>
-        <v-card-title class="headline"
-          >Welcome to the Vuetify + Nuxt.js template</v-card-title
-        >
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <ul>
-            <li v-for="detail in details" :key="detail.id">{{ detail }}</li>
-          </ul>
-          <div v-for="variant in variants" :key="variant.id">
-            <div>{{ variant.name }}</div>
-          </div>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              >documentation</a
-            >
-            . And there Heyfgfgfgsdsds
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-              >discord</a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-              >issue board</a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em>
-              <small>&mdash; John Leider</small>
-            </em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Nuxt Documentation</a
-          >
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-            >Nuxt GitHub</a
-          >
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
-    <div id="app">{{ congratulations }}</div>
-    <button @click="handleAddCard(5)">Add card</button>
-    <div :style="styles.redSquare">
-      <p>{{ card }}</p>
-    </div>
-    <div>{{ header }}</div>
+    <logo-video-service />
+    <buttonV></buttonV>
+    <text-form />
+    <check-box-boolean />
+    <header-v :need-button="needButton" />
+    <emoji-card
+      v-for="(smile, index) in emoji"
+      :key="index"
+      :get-smile="smile"
+    />
   </v-layout>
 </template>
 
 <script>
 import Vue from 'vue'
-
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+import LogoVideoService from '~/components/LogoVideoService/LogoVideoService.vue'
+import ButtonV from '~/components/Button.vue'
+import TextForm from '~/components/TextForm.vue'
+import CheckBoxBoolean from '~/components/CheckBoxBoolean.vue'
+import HeaderV from '~/components/Header.vue'
+import EmojiCard from '~/components/EmojiCard.vue'
 
 Vue.component('product', {
   props: {
@@ -110,39 +36,26 @@ Vue.component('product', {
 
 export default {
   components: {
-    Logo,
-    VuetifyLogo,
+    LogoVideoService,
+    ButtonV,
+    TextForm,
+    CheckBoxBoolean,
+    HeaderV,
+    EmojiCard,
   },
   data() {
     return {
-      congratulations:
-        'Welcome back, my dear brain! I like then you are working well!!',
-      description: 'V letter',
-      confirm: true,
-      details: ['Бонд', 'Джеймс', 'Джеймс Бонд'],
-      variants: {
-        variantOne: { name: 'Бонни', id: 1 },
-        variantTwo: { name: 'Клайд', id: 2 },
-      },
-      card: 0,
-      styles: {
-        redSquare: {
-          backgroundColor: 'red',
-          width: '40px',
-          height: '40px',
-        },
-      },
+      needButton: true,
+      emoji: ['chost', 'happy', 'ufo', 'cry'],
     }
   },
   computed: {
     header() {
-      return this.variants.variantOne.name + ' ' + this.variants.variantTwo.name
+      return 1
     },
   },
   methods: {
-    handleAddCard(num) {
-      this.card += num
-    },
+    handleAddCard() {},
   },
 }
 </script>

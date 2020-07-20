@@ -1,6 +1,6 @@
 <template>
-  <v-app dark>
-    <v-navigation-drawer
+  <v-app>
+    <!-- <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
@@ -42,9 +42,9 @@
       </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container>
-        <nuxt />
-      </v-container>
+      <v-container> -->
+    <nuxt />
+    <!-- </v-container>
     </v-content>
     <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
       <v-list>
@@ -60,7 +60,7 @@
     </v-navigation-drawer>
     <v-footer :absolute="!fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
