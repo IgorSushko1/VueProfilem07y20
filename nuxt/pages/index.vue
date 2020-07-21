@@ -10,6 +10,14 @@
       :key="index"
       :get-smile="smile"
     />
+    <footer-v />
+    <film-card
+      v-for="(card, index) in listOfNews"
+      :key="index"
+      :image-name="card.picName"
+      :film-description="card.description"
+      :translated-name="card.translatedName"
+    />
   </v-layout>
 </template>
 
@@ -21,6 +29,10 @@ import TextForm from '~/components/TextForm.vue'
 import CheckBoxBoolean from '~/components/CheckBoxBoolean.vue'
 import HeaderV from '~/components/Header.vue'
 import EmojiCard from '~/components/EmojiCard.vue'
+import FooterV from '~/components/Footer.vue'
+import FilmCard from '~/components/FilmCard.vue'
+
+import newsList from '~/static/newsList.json'
 
 Vue.component('product', {
   props: {
@@ -42,11 +54,17 @@ export default {
     CheckBoxBoolean,
     HeaderV,
     EmojiCard,
+    FooterV,
+    FilmCard,
   },
   data() {
     return {
       needButton: true,
       emoji: ['chost', 'happy', 'ufo', 'cry'],
+      poster: 'Hustlers.png',
+      description: 'Some description',
+      filmName: 'Бэтмен',
+      listOfNews: newsList,
     }
   },
   computed: {
