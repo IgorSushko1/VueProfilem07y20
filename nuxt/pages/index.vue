@@ -18,6 +18,26 @@
       :film-description="card.description"
       :translated-name="card.translatedName"
     />
+    <v-virtual-scroll
+      id="style-3"
+      :items="Object.values(listOfChannel)"
+      height="518"
+      width="1180"
+      item-height="170"
+    >
+      <template v-slot="{ item }">
+        <v-list-item :key="item">
+          <v-list-item-content>
+            <tv-programm
+              :key="item.name"
+              :tv-channel-name="item.name"
+              :tv-channel-image="item.image"
+              :tv-channel-programm="item.programms"
+            />
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+    </v-virtual-scroll>
   </v-layout>
 </template>
 
@@ -31,8 +51,10 @@ import HeaderV from '~/components/Header.vue'
 import EmojiCard from '~/components/EmojiCard.vue'
 import FooterV from '~/components/Footer.vue'
 import FilmCard from '~/components/FilmCard.vue'
+import TvProgramm from '~/components/TVProgramm.vue'
 
 import newsList from '~/static/newsList.json'
+import tvProgrammList from '~/static/tvProgramm.json'
 
 Vue.component('product', {
   props: {
@@ -56,6 +78,7 @@ export default {
     EmojiCard,
     FooterV,
     FilmCard,
+    TvProgramm,
   },
   data() {
     return {
@@ -65,6 +88,7 @@ export default {
       description: 'Some description',
       filmName: 'Бэтмен',
       listOfNews: newsList,
+      listOfChannel: tvProgrammList,
     }
   },
   computed: {
@@ -77,3 +101,21 @@ export default {
   },
 }
 </script>
+
+<style lang="scss" scoped>
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #bdbdbd;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 10px;
+}
+</style>
