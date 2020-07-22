@@ -38,6 +38,12 @@
         </v-list-item>
       </template>
     </v-virtual-scroll>
+    <full-film-card
+      v-for="(obj, index) in Object.values(listOfNews)"
+      :key="index"
+      :description-film="obj"
+      :image-name="obj.picName"
+    />
   </v-layout>
 </template>
 
@@ -52,6 +58,7 @@ import EmojiCard from '~/components/EmojiCard.vue'
 import FooterV from '~/components/Footer.vue'
 import FilmCard from '~/components/FilmCard.vue'
 import TvProgramm from '~/components/TVProgramm.vue'
+import FullFilmCard from '~/components/FullFilmCard.vue'
 
 import newsList from '~/static/newsList.json'
 import tvProgrammList from '~/static/tvProgramm.json'
@@ -79,6 +86,7 @@ export default {
     FooterV,
     FilmCard,
     TvProgramm,
+    FullFilmCard,
   },
   data() {
     return {
