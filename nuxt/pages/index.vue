@@ -44,6 +44,9 @@
       :description-film="obj"
       :image-name="obj.picName"
     />
+    <div v-for="(obj, index) in Object.values(listOfNews)" :key="index">
+      <comment-card :comment-info="obj" />
+    </div>
   </v-layout>
 </template>
 
@@ -59,6 +62,7 @@ import FooterV from '~/components/Footer.vue'
 import FilmCard from '~/components/FilmCard.vue'
 import TvProgramm from '~/components/TVProgramm.vue'
 import FullFilmCard from '~/components/FullFilmCard.vue'
+import CommentCard from '~/components/Comment.vue'
 
 import newsList from '~/static/newsList.json'
 import tvProgrammList from '~/static/tvProgramm.json'
@@ -87,6 +91,7 @@ export default {
     FilmCard,
     TvProgramm,
     FullFilmCard,
+    CommentCard,
   },
   data() {
     return {
