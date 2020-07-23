@@ -1,12 +1,12 @@
 <style lang="scss">
 .container__v-form {
   display: flex;
+  width: 450px;
 }
 .container__v-text-field {
-  width: 320px;
   height: 25px;
   margin: 0;
-  padding: 0;
+  // padding: 0 30px 0 0;
 }
 </style>
 
@@ -16,7 +16,7 @@
       :counter="10"
       :label="text"
       required
-      class="container__v-text-field"
+      class="container__v-text-field pr-6 pt-0"
     ></v-text-field>
     <div v-if="needButton">
       <v-btn
@@ -24,7 +24,7 @@
         depressed="true"
         text="true"
         color="#e5261e"
-        class="mr-4 container__button"
+        class="mr-8 container__button"
         @click="find"
         >{{ buttonTexts }}</v-btn
       >

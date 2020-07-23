@@ -1,11 +1,12 @@
 <style scoped lang="scss">
 .container__header {
   display: flex;
-  // width: 1000px;
+  width: 100%;
   align-items: center;
 }
 .container__button {
-  width: 130px;
+  // width: 130px;
+  padding: 0 29px !important;
   height: 38px;
   transition: background-color 0.5s ease;
   background: #e5261e !important;
@@ -22,18 +23,17 @@
 
 <template>
   <div>
-    <div class="container__header">
+    <div class="container__header justify-space-between">
       <logo-video-service />
-      <text-form :need-button="needButton" />
-      <button-v class="container__button" />
-      <v-btn @click="overlay = !overlay"></v-btn>
+      <text-form :need-button="true" />
+      <v-btn class="container__button" @click="overlay = !overlay">Войти</v-btn>
     </div>
     <v-overlay
       :value="overlay"
       :z-index="zIndex"
       :absolute="absolute"
       :opacity="opacity"
-      dark="false"
+      :dark="false"
     >
       <v-card width="304" class="mx-auto mt-5">
         <v-card-title>
@@ -49,12 +49,9 @@
             />
           </v-form>
         </v-card-text>
-        <v-checkbox v-model="checkbox" label="Запомнить" class="mt-0 mx-8" />
+        <v-checkbox :v-model="checkbox" label="Запомнить" class="mt-0 mx-8" />
         <v-card-actions class="mt-16">
-          <v-btn
-            large
-            class="mx-auto pl-10 pr-10 mb-6 container__button"
-            @click="overlay = !overlay"
+          <v-btn class="container__button" @click="overlay = !overlay"
             >Войти</v-btn
           >
         </v-card-actions>

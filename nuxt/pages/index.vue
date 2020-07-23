@@ -47,6 +47,7 @@
     <div v-for="(obj, index) in Object.values(listOfNews)" :key="index">
       <comment-card :comment-info="obj" />
     </div>
+    <nuxt-link to="/indexMovie">Home page</nuxt-link>
   </v-layout>
 </template>
 
@@ -97,6 +98,12 @@ export default {
     return {
       needButton: true,
       emoji: ['chost', 'happy', 'ufo', 'cry'],
+      emojiColor: [
+        ['#828282', '#333333'],
+        ['#f2c94c', '#f29a4a'],
+        ['#56CCF2', '#2F80ED'],
+        ['#F2994', '#EB5757'],
+      ],
       poster: 'Hustlers.png',
       description: 'Some description',
       filmName: 'Бэтмен',

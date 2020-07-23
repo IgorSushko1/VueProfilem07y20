@@ -3,7 +3,6 @@
   width: 280px;
   height: 208px;
   border-radius: 6px;
-  background: linear-gradient(96deg, #f2c84ce1, #f29a4ae1);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -24,15 +23,15 @@
 }
 
 .container:hover {
-  background: linear-gradient(96deg, #f2c94c, #f29a4a);
+  opacity: 0.8;
 }
 </style>
 
 <template>
-  <div class="container">
+  <v-card class="container mx-2" :style="chooseColor">
     <img :src="chooseSmile" alt="" class="container__image" />
-    <p class="container__text">Комедии</p>
-  </div>
+    <p class="container__text">{{ emojiDescription }}</p>
+  </v-card>
 </template>
 
 <script>
@@ -41,11 +40,36 @@ export default {
     getSmile: {
       type: String,
       require: true,
+      default: '',
     },
+    emojiColor: {
+      type: Array,
+      require: true,
+      default() {
+        return []
+      },
+    },
+    emojiDescription: {
+      type: String,
+      require: true,
+      default: '',
+    },
+  },
+  data() {
+    return {}
   },
   computed: {
     chooseSmile() {
       return '/' + this.getSmile + '.png'
+    },
+    chooseColor() {
+      return (
+        'background: linear-gradient(96deg, ' +
+        this.emojiColor[0] +
+        ', ' +
+        this.emojiColor[1] +
+        ' )'
+      )
     },
   },
 }

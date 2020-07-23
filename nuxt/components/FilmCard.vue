@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="280">
+  <v-card class="mx-3" max-width="280">
     <v-hover>
       <template v-slot:default="{ hover }">
         <v-card class="mx-auto" max-width="280">
