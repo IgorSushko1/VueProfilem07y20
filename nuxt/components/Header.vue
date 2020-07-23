@@ -24,7 +24,7 @@
 <template>
   <div>
     <div class="container__header justify-space-between">
-      <logo-video-service />
+      <nuxt-link to="/"><logo-video-service /></nuxt-link>
       <text-form :need-button="true" />
       <v-btn class="container__button" @click="overlay = !overlay">Войти</v-btn>
     </div>
@@ -51,7 +51,7 @@
         </v-card-text>
         <v-checkbox :v-model="checkbox" label="Запомнить" class="mt-0 mx-8" />
         <v-card-actions class="mt-16">
-          <v-btn class="container__button" @click="overlay = !overlay"
+          <v-btn class="container__button mx-auto" @click="overlay = !overlay"
             >Войти</v-btn
           >
         </v-card-actions>

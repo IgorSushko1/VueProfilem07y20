@@ -1,36 +1,71 @@
 <style lang="scss">
 .index-movie {
+  display: block;
+  position: relative;
+  max-width: 1180px;
+  margin: auto;
+
   &__header-switch-card {
     font-family: Rubik;
     font-style: normal;
     font-weight: 500;
     font-size: 28px;
-    line-height: 50px;
+    line-height: 33px;
+    font-stretch: 0.01;
+    letter-spacing: 0.01px;
+    text-transform: capitalize;
+    // margin-top: 0;
   }
-  &__header-switch-card:hover {
-    // border: ;
-    // border-bottom: orangered;
-    text-decoration: underline;
+
+  &__header {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: right;
+    margin: 0 0 16px 24px;
   }
+}
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #bdbdbd;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 10px;
 }
 </style>
 
 <template>
-  <div>
-    <nuxt-link to="/">Home page</nuxt-link>
-    <v-row>
-      <div class="index-movie__header-switch-card">Фильмы</div>
-      <div class="index-movie__header-switch-card">Телканалы</div>
-    </v-row>
-
-    <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
-      <v-tab v-for="item in changeTabs" :key="item">
+  <div class="index-movie">
+    <v-tabs
+      v-model="tab"
+      centered
+      background-color="transparent"
+      color="red"
+      class="mt-2"
+    >
+      <v-tab
+        v-for="item in changeTabs"
+        :key="item"
+        class="index-movie__header-switch-card"
+      >
         {{ item }}
       </v-tab>
       <v-tab-item>
         <v-card flat>
-          <v-row>
-            <span class="index-movie__header">🔥 Новинки </span>
+          <v-row class="mt-6">
+            <span class="index-movie__header text font-weight-bold"
+              >🔥 Новинки
+            </span>
           </v-row>
           <v-row class="ma-0 pa-0">
             <film-card
@@ -39,18 +74,20 @@
               :image-name="card.picName"
               :film-description="card.description"
               :translated-name="card.translatedName"
+              class="mx-2"
             />
           </v-row>
           <v-row>
-            <div class="index-movie__header">Жанры</div>
+            <div class="index-movie__header font-weight-bold">Жанры</div>
           </v-row>
-          <v-row>
+          <v-row class="ma-0">
             <emoji-card
               v-for="(smile, index) in emoji"
               :key="index"
               :emoji-color="emojiColor[index]"
               :emoji-description="emojiDescription[index]"
               :get-smile="smile"
+              class="ma-0"
           /></v-row>
         </v-card>
       </v-tab-item>
@@ -114,7 +151,7 @@ export default {
       tvProgrammList,
       newsList,
       listOfNews: newsList,
-      changeTabs: ['Фильмы', 'Телепрограмма'],
+      changeTabs: ['Фильмы', 'Телеканалы'],
       listOfChannel: tvProgrammList,
       tab: null,
     }
