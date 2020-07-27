@@ -61,12 +61,26 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:3000/api/',
+  },
+  auth: {
+    // Options
+  },
+
+  // routes: {
+  //   {
+  //     path: '/admin/users',
+  //     name: 'admin-user-list',
+  //     component: 'AdminUserList',
+  //   },
+  // },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

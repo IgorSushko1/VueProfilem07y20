@@ -29,6 +29,7 @@
 }
 #style-3::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px #bdbdbd;
+  box-shadow: inset 0 0 6px #bdbdbd;
   background-color: #f5f5f5;
   border-radius: 10px;
 }
@@ -156,16 +157,6 @@ export default {
       tab: null,
     }
   },
-  methods: {
-    async returnTv() {
-      return await tvProgrammList
-    },
-    async updateMessage() {
-      this.message = 'updated'
-      console.log(this.$el.textContent) // => 'not updated'
-      await this.$nextTick()
-      console.log(this.$el.textContent) // => 'updated'
-    },
-  },
+  methods: {},
 }
 </script>

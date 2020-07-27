@@ -1,3 +1,33 @@
+<style lang="scss" scoped>
+.container-footer {
+  background: #f2f2f2;
+  height: 120px;
+  margin: auto;
+  width: 1440px;
+
+  &__link {
+    color: #1f4766;
+    &:visited {
+      color: #6b3ba1;
+    }
+  }
+
+  &__for-image {
+    position: relative;
+    margin-left: 100px;
+  }
+
+  &__image {
+    width: 32px;
+    height: 64px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+</style>
+
 <template>
   <div>
     <v-card class="container-footer">
@@ -58,6 +88,7 @@
     position: relative;
     margin-left: 100px;
   }
+
   &__image {
     width: 32px;
     height: 64px;

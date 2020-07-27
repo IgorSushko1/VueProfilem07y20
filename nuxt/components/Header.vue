@@ -41,8 +41,14 @@
         </v-card-title>
         <v-card-text class="pb-0">
           <v-form>
-            <v-text-field label="Username" class="mt-0 pt-0 mx-5" />
             <v-text-field
+              v-model="username"
+              type="text"
+              label="Username"
+              class="mt-0 pt-0 mx-5"
+            />
+            <v-text-field
+              v-model="password"
               type="password"
               label="Password"
               class="mt-0 pt-0 mx-5"
@@ -57,6 +63,21 @@
         </v-card-actions>
       </v-card>
     </v-overlay>
+    <div v-if="$auth.loggedIn">
+      {{ $auth.user.email }}
+      <v-btn text>Logout</v-btn>
+      <!-- {{userame}} -->
+      <!-- <v-btn>Войти</v-btn> -->
+    </div>
+    <div v-else>
+      <nuxt-link to="/Login">
+        <v-btn text to="/Login">Login</v-btn>
+      </nuxt-link>
+      <v-btn text to="/Register">Register</v-btn>
+
+      <!-- login -->
+      <!-- logout -->
+    </div>
   </div>
 </template>
 
@@ -82,7 +103,12 @@ export default {
       opacity: 0.1,
       overlay: false,
       zIndex: 5,
+      username: '',
+      password: '',
     }
+  },
+  methods: {
+    login() {},
   },
 }
 </script>

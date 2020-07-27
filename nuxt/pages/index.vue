@@ -1,5 +1,24 @@
+<style lang="scss" scoped>
+#style-3::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #bdbdbd;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+#style-3::-webkit-scrollbar {
+  width: 6px;
+  background-color: #f5f5f5;
+}
+
+#style-3::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd;
+  border-radius: 10px;
+}
+</style>
+
 <template>
   <v-layout column justify-center align-center>
+    <nuxt-link to="/app">APP</nuxt-link>
     <logo-video-service />
     <buttonV></buttonV>
     <text-form />
@@ -12,7 +31,7 @@
     />
     <footer-v />
     <film-card
-      v-for="(card, index) in listOfNews"
+      v-for="(card, name, index) in listOfNews"
       :key="index"
       :image-name="card.picName"
       :film-description="card.description"
@@ -39,20 +58,22 @@
       </template>
     </v-virtual-scroll>
     <full-film-card
-      v-for="(obj, index) in Object.values(listOfNews)"
+      v-for="(obj, name, index) in Object.values(listOfNews)"
       :key="index"
       :description-film="obj"
       :image-name="obj.picName"
     />
-    <div v-for="(obj, index) in Object.values(listOfNews)" :key="index">
+    <div v-for="(obj, name, index) in Object.values(listOfNews)" :key="index">
       <comment-card :comment-info="obj" />
     </div>
+
     <nuxt-link to="/indexMovie">Home page</nuxt-link>
   </v-layout>
 </template>
 
 <script>
 import Vue from 'vue'
+
 import LogoVideoService from '~/components/LogoVideoService/LogoVideoService.vue'
 import ButtonV from '~/components/Button.vue'
 import TextForm from '~/components/TextForm.vue'
@@ -121,21 +142,3 @@ export default {
   },
 }
 </script>
-
-<style lang="scss" scoped>
-#style-3::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #bdbdbd;
-  background-color: #f5f5f5;
-  border-radius: 10px;
-}
-
-#style-3::-webkit-scrollbar {
-  width: 6px;
-  background-color: #f5f5f5;
-}
-
-#style-3::-webkit-scrollbar-thumb {
-  background-color: #bdbdbd;
-  border-radius: 10px;
-}
-</style>
