@@ -11,7 +11,7 @@
 </style>
 
 <template>
-  <v-form ref="form" v-model="valid" class="container__v-form" lazy-validation>
+  <v-form ref="form" class="container__v-form" lazy-validation>
     <v-text-field
       :counter="10"
       :label="text"
@@ -21,8 +21,7 @@
     <div v-if="needButton">
       <v-btn
         exact-active-class=""
-        depressed="true"
-        text="true"
+        depressed
         color="#e5261e"
         class="mr-8 container__button"
         @click="find"

@@ -12,6 +12,8 @@ export default {
   components: {
     UserAuthForm,
   },
+  layout: 'none',
+
   data() {
     return {}
   },

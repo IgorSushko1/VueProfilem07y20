@@ -19,6 +19,8 @@
 <template>
   <v-layout column justify-center align-center>
     <nuxt-link to="/app">APP</nuxt-link>
+    <nuxt-link to="/userLogin">User Login page</nuxt-link>
+
     <logo-video-service />
     <buttonV></buttonV>
     <text-form />

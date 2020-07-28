@@ -74,13 +74,6 @@ export default {
     // Options
   },
 
-  // routes: {
-  //   {
-  //     path: '/admin/users',
-  //     name: 'admin-user-list',
-  //     component: 'AdminUserList',
-  //   },
-  // },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

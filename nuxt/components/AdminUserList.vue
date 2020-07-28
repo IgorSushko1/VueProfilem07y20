@@ -1,21 +1,22 @@
 <template>
   <div>
-    <div v-for="(user, name, index) in users" :key="index">
-      {{ user.name }}
-      <v-btn x-small @click="LoginUser"></v-btn>
-    </div>
+    <v-card
+      v-for="(user, name, index) in users"
+      :key="index"
+      class="ma-12 pa-12"
+    >
+      {{ user.attributes.name }}
+      <v-btn x-small @click="LoginUser(user.attributes)">Login</v-btn>
+    </v-card>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-import users from '~/static/users.json'
 
 export default {
   data() {
-    return {
-      users,
-    }
+    return {}
   },
   computed: {
     ...mapState(['users']),
@@ -24,8 +25,8 @@ export default {
     this.$store.dispatch('loadUsers')
   },
   methods: {
-    LoginUser() {
-      this.$store.dispatch('LoginUser')
+    LoginUser(user) {
+      this.$store.dispatch('LoginUser', user)
     },
   },
 }

@@ -55,7 +55,7 @@
             />
           </v-form>
         </v-card-text>
-        <v-checkbox :v-model="checkbox" label="Запомнить" class="mt-0 mx-8" />
+        <!-- <v-checkbox :v-model="checkbox" label="Запомнить" class="mt-0 mx-8" /> -->
         <v-card-actions class="mt-16">
           <v-btn class="container__button mx-auto" @click="overlay = !overlay"
             >Войти</v-btn

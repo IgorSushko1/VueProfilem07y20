@@ -38,12 +38,15 @@ export default {
   data() {
     return {}
   },
+  layout: 'none',
+
   computed: {
     ...mapState(['currentUser']),
   },
   mounted() {
     this.$store.dispatch('')
   },
+
   methods: {
     LogoutUser() {
       this.$store.dispatch('LogoutUser')
