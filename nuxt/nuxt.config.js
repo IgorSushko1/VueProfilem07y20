@@ -18,9 +18,8 @@ export default {
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
-    meta: [{
-        charset: 'utf-8',
-      },
+    meta: [
+      { charset: 'utf-8' },
       {
         name: 'viewport',
         content: 'width=device-width, initial-scale=1',
@@ -31,11 +30,13 @@ export default {
         content: process.env.npm_package_description || '',
       },
     ],
-    link: [{
-      rel: 'icon',
-      type: 'image/x-icon',
-      href: '/favicon.ico',
-    }, ],
+    link: [
+      {
+        rel: 'icon',
+        type: 'image/x-icon',
+        href: '/favicon.ico',
+      },
+    ],
   },
   /*
    ** Global CSS
@@ -45,7 +46,7 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [],
+  // plugins: ['~/plugins/api-context.js'],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -67,33 +68,32 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseURL: 'http://localhost:3000/api/',
-  },
+  // axios: { baseURL: 'http://localhost:3000/api/' },
   auth: {
     // Options
   },
 
-  serverMiddleware: [{
-      path: '/api',
-      handler: require('body-parser').json(),
-    },
-    {
-      path: '/api',
-      handler: (req, res, next) => {
-        req.query = new URL(req.url)
-        req.params = {
-          ...req.query,
-          ...req.body,
-        }
-        next()
-      },
-    },
-    {
-      path: '/api',
-      handler: '~/serverMiddleware/api-server.js',
-    },
-  ],
+  // serverMiddleware: [
+  //   {
+  //     path: '/api',
+  //     handler: require('body-parser').json(),
+  //   },
+  //   {
+  //     path: '/api',
+  //     handler: (req, res, next) => {
+  //       req.query = new URL(req.url)
+  //       req.params = {
+  //         ...req.query,
+  //         ...req.body,
+  //       }
+  //       next()
+  //     },
+  //   },
+  //   {
+  //     path: '/api',
+  //     handler: '~/serverMiddleware/api-server.js',
+  //   },
+  // ],
 
   /*
    ** vuetify module configuration

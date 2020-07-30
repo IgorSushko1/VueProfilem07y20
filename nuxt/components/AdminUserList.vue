@@ -1,10 +1,6 @@
 <template>
   <div>
-    <v-card
-      v-for="(user, name, index) in users"
-      :key="index"
-      class="ma-12 pa-12"
-    >
+    <v-card v-for="(user, name, index) in users" :key="index" class="ma-12 pa-12">
       {{ user.attributes.name }}
       <v-btn x-small @click="LoginUser(user.attributes)">Login</v-btn>
     </v-card>
@@ -18,9 +14,7 @@ export default {
   data() {
     return {}
   },
-  computed: {
-    ...mapState(['users']),
-  },
+  computed: { ...mapState(['users']) },
   mounted() {
     this.$store.dispatch('loadUsers')
   },

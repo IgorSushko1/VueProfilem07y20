@@ -1,0 +1,16 @@
+{
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.endOfLine": "auto",
+  "prettier.requireConfig": true,
+  "prettier.requirePragma": true,
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "prettier.useEditorConfig": false,
+  "vetur.format.defaultFormatter.ts": "prettier-tslint",
+  "prettier.disableLanguages": [
+    "ts"
+  ],
+  "eslint.format.enable": true,
+  "eslint.lintTask.enable": true,
+  "eslint.alwaysShowStatus": true
+}
