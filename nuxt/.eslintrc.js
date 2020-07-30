@@ -8,17 +8,30 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'prettier',
     'prettier/vue',
-    'plugin:prettier/recommended',
+    // 'plugin:prettier/recommended',
     'plugin:nuxt/recommended',
   ],
   plugins: ['prettier'],
   // add your custom rules here
   rules: {
-    objectCurlyNewline: [
+    quotes: ['error', 'single'],
+    'object-curly-newline': [
       'error',
       {
-        multiline: true,
-        minProperties: 2,
+        ObjectExpression: {
+          multiline: true,
+          minProperties: 2,
+        },
+        ObjectPattern: {
+          multiline: true,
+          minProperties: 2,
+        },
+        ImportDeclaration: 'never',
+        ExportDeclaration: 'never',
+        // {
+        //   multiline: true,
+        //   minProperties: 1,
+        // },
       },
     ],
   },
