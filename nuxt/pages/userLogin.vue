@@ -2,20 +2,16 @@
 
 <template>
   <v-container>
-    <v-form>
-      <v-text-field v-model="loginInfo.email" type="Email" label="Email" />
-      <v-text-field
-        v-model="loginInfo.password"
-        type="Password"
-        label="Password"
-      />
-    </v-form>
-    <v-btn @click="LoginUser">Login</v-btn>
+    <user-auth-form type-of-form="login" button-text="Войти" />
   </v-container>
 </template>
 
 <script>
+import userAuthForm from '~/components/UserAuthForm.vue'
 export default {
+  components: {
+    userAuthForm,
+  },
   data() {
     return {
       loginInfo: {
@@ -24,15 +20,6 @@ export default {
       },
     }
   },
-  methods: {
-    async LoginUser() {
-      const user = await this.$store.dispatch('LoginUser', this.loginInfo)
-      if (user.error) {
-        alert(user.error)
-      } else {
-        alert('thanks for your signing in ' + user)
-      }
-    },
-  },
+  methods: {},
 }
 </script>

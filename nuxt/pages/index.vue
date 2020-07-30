@@ -18,20 +18,17 @@
 
 <template>
   <v-layout column justify-center align-center>
-    <nuxt-link to="/app">APP</nuxt-link>
-    <nuxt-link to="/userLogin">User Login page</nuxt-link>
-
-    <logo-video-service />
-    <buttonV></buttonV>
-    <text-form />
-    <check-box-boolean />
-    <header-v :need-button="needButton" />
+    <!-- <logo-video-service /> -->
+    <!-- <buttonV></buttonV> -->
+    <!-- <text-form /> -->
+    <!-- <check-box-boolean /> -->
+    <!-- <header-v :need-button="needButton" /> -->
     <emoji-card
       v-for="(smile, index) in emoji"
       :key="index"
       :get-smile="smile"
     />
-    <footer-v />
+    <!-- <footer-v /> -->
     <film-card
       v-for="(card, name, index) in listOfNews"
       :key="index"

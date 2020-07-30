@@ -74,6 +74,27 @@ export default {
     // Options
   },
 
+  serverMiddleware: [{
+      path: '/api',
+      handler: require('body-parser').json(),
+    },
+    {
+      path: '/api',
+      handler: (req, res, next) => {
+        req.query = new URL(req.url)
+        req.params = {
+          ...req.query,
+          ...req.body,
+        }
+        next()
+      },
+    },
+    {
+      path: '/api',
+      handler: '~/serverMiddleware/api-server.js',
+    },
+  ],
+
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module

@@ -24,7 +24,7 @@
 <template>
   <div>
     <div class="container__header justify-space-between">
-      <nuxt-link to="/"><logo-video-service /></nuxt-link>
+      <nuxt-link to="/indexMovie"><logo-video-service /></nuxt-link>
       <text-form :need-button="true" />
       <v-btn class="container__button" @click="overlay = !overlay">Войти</v-btn>
     </div>
@@ -63,33 +63,44 @@
         </v-card-actions>
       </v-card>
     </v-overlay>
-    <div v-if="$auth.loggedIn">
-      {{ $auth.user.email }}
-      <v-btn text>Logout</v-btn>
-      <!-- {{userame}} -->
-      <!-- <v-btn>Войти</v-btn> -->
+    <!-- <div v-if="$auth.loggedIn"> -->
+    <!-- {{ $auth.user.email }} -->
+    <div v-if="currentUser.name">
+      {{ currentUser.name }}
+      <!-- <nuxt-link to="/userLogin"> -->
+      <v-btn text class="mr-2" @click="LogoutUser">
+        Logout
+      </v-btn>
+      <!-- </nuxt-link> -->
     </div>
     <div v-else>
-      <nuxt-link to="/Login">
-        <v-btn text to="/Login">Login</v-btn>
-      </nuxt-link>
-      <v-btn text to="/Register">Register</v-btn>
+      <v-btn text to="/userLogin">Login</v-btn>
 
-      <!-- login -->
-      <!-- logout -->
+      <v-btn text to="/userRegistration">Register</v-btn>
     </div>
+    <!-- </div> -->
+    <!-- <div v-else>
+      <nuxt-link to="/Login">
+        <v-btn text to="/userLogin">Login</v-btn>
+      </nuxt-link>
+      <v-btn text to="/userRegistration">Register</v-btn>
+    </div> -->
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+// import adminUserList from '~/components/AdminUserList.vue'
+
 import LogoVideoService from './LogoVideoService/LogoVideoService.vue'
 import TextForm from './TextForm'
-import ButtonV from './Button'
+// import ButtonV from './Button'
 export default {
   components: {
     LogoVideoService,
     TextForm,
-    ButtonV,
+    // ButtonV,
+    // adminUserList,
   },
   props: {
     needButton: {
@@ -107,8 +118,17 @@ export default {
       password: '',
     }
   },
+  computed: {
+    ...mapState(['currentUser']),
+  },
+  mounted() {
+    this.$store.dispatch('loadCurrentUser')
+  },
   methods: {
     login() {},
+    LogoutUser() {
+      this.$store.dispatch('LogoutUser')
+    },
   },
 }
 </script>

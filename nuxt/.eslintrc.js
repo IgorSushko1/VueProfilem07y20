@@ -13,5 +13,13 @@ module.exports = {
   ],
   plugins: ['prettier'],
   // add your custom rules here
-  rules: {},
+  rules: {
+    objectCurlyNewline: [
+      'error',
+      {
+        multiline: true,
+        minProperties: 2,
+      },
+    ],
+  },
 }

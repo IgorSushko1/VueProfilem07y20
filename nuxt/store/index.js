@@ -35,6 +35,14 @@ export const actions = {
     const user = JSON.parse(window.localStorage.currentUser);
     commit('SET_CURRENT_USER', user)
   },
+
+  loadCurrentUser({
+    commit
+  }) {
+    const user = JSON.parse(window.localStorage.currentUser);
+    commit('SET_CURRENT_USER', user)
+  },
+
   LogoutUser({
     commit
   }) {
@@ -55,6 +63,22 @@ export const actions = {
         error: "Email/password комбинация не корректна. Пожалуйста, введите корректные данные от своего профиля"
       }
     }
+  },
 
+  async registeredUser({
+    commit
+  }, registrationInfo) {
+    try {
+      const response = await Api.createUser(registrationInfo);
+      if (response.bool) {
+        commit('SET_CURRENT_USER', response.profile)
+      }
+      debugger
+      return response.profile.name
+    } catch {
+      return {
+        error: "Произошла ошибка. Попробуйте зарегистрироваться заново"
+      }
+    }
   }
 }
