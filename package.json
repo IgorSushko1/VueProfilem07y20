@@ -1,0 +1,11 @@
+{
+  "name": "serverfornuxt",
+  "version": "1.0.0",
+  "description": "Простой сервер, который будет принимать запросы, обращаться к бд за пользователькими данными",
+  "main": "index.js",
+  "scripts": {
+    "test": "start"
+  },
+  "author": "Igor Sushko",
+  "license": "ISC"
+}
