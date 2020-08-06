@@ -2,24 +2,22 @@
 
 <template>
   <v-container>
-    <user-auth-form type-of-form="login" button-text="Войти" />
+    <user-auth-form type-of-form="login" button-text="Войти" :submit-form="loginUser" />
   </v-container>
 </template>
 
 <script>
 import userAuthForm from '~/components/UserAuthForm.vue'
 export default {
-  components: {
-    userAuthForm,
-  },
+  components: { userAuthForm },
   data() {
-    return {
-      loginInfo: {
-        email: '',
-        password: '',
-      },
-    }
+    return {}
   },
-  methods: {},
+  methods: {
+    loginUser(userInfo) {
+      this.$auth.loginWith('local')
+      // alert('Работает loginUser!')
+    },
+  },
 }
 </script>

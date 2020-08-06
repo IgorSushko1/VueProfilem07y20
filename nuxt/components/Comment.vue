@@ -26,28 +26,16 @@ export default {
     },
   },
   data() {
-    return {
-      comment: {},
-    }
+    return { comment: {} }
   },
-  computed: {
-    // commentsFormFilm() {
-    //   let obj
-    //   Object.keys(this.commentInfo).map((key) => {
-    //     if (this.commentInfo[key] === 'Once Upon A Time In Hollywood') {
-    //       obj = this.commentInfo.comments['101']
-    //     }
-    //   })
-    //   return obj
-    // },
-  },
+  computed: {},
   methods: {
     commentsFormFilm() {
-      let answer = {}
+      const answer = {}
       Object.keys(this.commentInfo).map((key) => {
         if (this.commentInfo[key] === 'Once Upon A Time In Hollywood') {
-          answer.comment = this.commentInfo.comments['101']['comment']
-          answer.author = this.commentInfo.comments['101']['author']
+          answer.comment = this.commentInfo.comments['101'].comment
+          answer.author = this.commentInfo.comments['101'].author
         }
       })
       return answer

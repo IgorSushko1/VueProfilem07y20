@@ -5,7 +5,7 @@ export default {
    ** Nuxt rendering mode
    ** See https://nuxtjs.org/api/configuration-mode
    */
-  mode: 'spa',
+  // mode: 'spa',
   /*
    ** Nuxt target
    ** See https://nuxtjs.org/api/configuration-target
@@ -63,14 +63,50 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/auth',
+    '@nuxt/http',
   ],
+
+  http: {
+    // proxyHeaders: false
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  // axios: { baseURL: 'http://localhost:3000/api/' },
+  axios: { baseURL: 'http://localhost:3000/api' },
   auth: {
     // Options
+    strategies: {
+      local: {
+        endpoints: {
+          login: {
+            url: '/auth/user',
+            method: 'get',
+            // propertyName: 'token',
+          },
+          logout: {
+            url: '/auth/logout',
+            method: 'post',
+          },
+          user: {
+            url: '/auth/user',
+            method: 'get',
+            propertyName: 'user',
+          },
+          register: {
+            url: '/auth/register',
+            method: 'post',
+            propertyName: 'user',
+          },
+        },
+        // tokenRequired: true,
+        // tokenType: 'bearer',
+        tokenType: '',
+
+        // globalToken: true,
+        // autoFetchUser: true
+      },
+    },
   },
 
   // serverMiddleware: [
@@ -94,6 +130,9 @@ export default {
   //     handler: '~/serverMiddleware/api-server.js',
   //   },
   // ],
+  serverMiddleware: {
+    '/api': '~/api',
+  },
 
   /*
    ** vuetify module configuration

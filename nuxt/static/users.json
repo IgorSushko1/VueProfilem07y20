@@ -1,0 +1,22 @@
+{
+  "t2t": {
+    "id": 1,
+    "type": "user",
+    "attributes": {
+      "id": 1,
+      "name": "Ivan",
+      "email": "t@t.t",
+      "password": 1234
+    }
+  },
+  "s2s": {
+    "id": 2,
+    "type": "user",
+    "attributes": {
+      "id": 2,
+      "name": "Stanislav",
+      "email": "s@s.s",
+      "password": 2345,
+    }
+  }
+}

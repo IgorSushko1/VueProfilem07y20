@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid">
+  <v-form v-model="valid" @submit="submitForm(userInfo)">
     <v-text-field
       v-if="typeOfForm === 'registration'"
       v-model="userInfo.name"
@@ -23,7 +23,7 @@
       @click:append="showPassword = !showPassword"
     />
 
-    <v-btn :disabled="!valid" @click="setButton">{{ buttonText }}</v-btn>
+    <v-btn type="submit" :disabled="!valid" @click="setButton">{{ buttonText }}</v-btn>
 
     <div v-if="typeOfForm === 'login'">
       <nuxt-link to="/userRegistration">
@@ -43,19 +43,31 @@ import validations from '~/utils/validations'
 
 export default {
   props: {
-    typeOfForm: { type: String, default: 'registration' },
-    submitForm: { type: Function, default() {} },
-    buttonText: { type: String, default: '' },
-    hasName: { type: Boolean, default: false },
+    typeOfForm: {
+      type: String,
+      default: 'registration',
+    },
+    submitForm: {
+      type: Function,
+      default() {},
+    },
+    buttonText: {
+      type: String,
+      default: '',
+    },
+    hasName: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       valid: false,
       showPassword: false,
       userInfo: {
-        name: '',
-        email: '',
-        password: '',
+        name: 'igor',
+        email: 'igor@igor.ru',
+        password: '12345',
       },
       ...validations,
     }
@@ -63,10 +75,11 @@ export default {
   computed: {},
   methods: {
     setButton() {
+      // submitForm()
       if (this.typeOfForm === 'login') {
-        this.LoginUser(this.userInfo)
+        // this.LoginUser(this.userInfo)
       } else if (this.typeOfForm === 'registration') {
-        this.registerUser(this.userInfo)
+        // this.registerUser(this.userInfo)
       }
     },
     async LoginUser(log) {

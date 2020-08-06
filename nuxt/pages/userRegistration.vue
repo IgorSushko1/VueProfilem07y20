@@ -13,6 +13,10 @@ export default {
   components: {
     userAuthForm,
   },
-  methods: {},
+  methods: {
+    registerUser(userInfo) {
+      alert('Работает registerUser!')
+    },
+  },
 }
 </script>

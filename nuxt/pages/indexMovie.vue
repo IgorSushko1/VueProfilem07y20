@@ -14,7 +14,6 @@
     font-stretch: 0.01;
     letter-spacing: 0.01px;
     text-transform: capitalize;
-    // margin-top: 0;
   }
 
   &__header {
@@ -47,26 +46,16 @@
 
 <template>
   <div class="index-movie">
-    <v-tabs
-      v-model="tab"
-      centered
-      background-color="transparent"
-      color="red"
-      class="mt-2"
-    >
+    <v-tabs v-model="tab" centered background-color="transparent" color="red" class="mt-2">
       <v-tab
         v-for="item in changeTabs"
         :key="item"
         class="index-movie__header-switch-card"
-      >
-        {{ item }}
-      </v-tab>
+      >{{ item }}</v-tab>
       <v-tab-item>
         <v-card flat>
           <v-row class="mt-6">
-            <span class="index-movie__header text font-weight-bold"
-              >🔥 Новинки
-            </span>
+            <span class="index-movie__header text font-weight-bold">🔥 Новинки</span>
           </v-row>
           <v-row class="ma-0 pa-0">
             <film-card
@@ -89,7 +78,8 @@
               :emoji-description="emojiDescription[index]"
               :get-smile="smile"
               class="ma-0"
-          /></v-row>
+            />
+          </v-row>
         </v-card>
       </v-tab-item>
       <v-tab-item>

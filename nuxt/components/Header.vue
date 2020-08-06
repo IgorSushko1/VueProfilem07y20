@@ -5,7 +5,6 @@
   align-items: center;
 }
 .container__button {
-  // width: 130px;
   padding: 0 29px !important;
   height: 38px;
   transition: background-color 0.5s ease;
@@ -24,9 +23,23 @@
 <template>
   <div>
     <div class="container__header justify-space-between">
-      <nuxt-link to="/indexMovie"><logo-video-service /></nuxt-link>
+      <nuxt-link to="/indexMovie">
+        <logo-video-service />
+      </nuxt-link>
       <text-form :need-button="true" />
-      <v-btn class="container__button" @click="overlay = !overlay">Войти</v-btn>
+      <div v-if="$auth.loggedIn">
+        {{ $auth.user.useremail}}
+        <v-btn class="container__button" to="/indexMovie">Выйти</v-btn>
+      </div>
+      <div v-else>
+        <v-btn class="container__button" to="/userLogin">Войти</v-btn>
+
+        <v-btn class="container__button" to="/userRegistration">Зарегистрироваться</v-btn>
+      </div>
+
+      <!-- <v-btn class="container__button" to="/userLogin" 
+      @click="overlay = !overlay"
+      >Войти</v-btn>-->
     </div>
     <v-overlay
       :value="overlay"
@@ -41,12 +54,7 @@
         </v-card-title>
         <v-card-text class="pb-0">
           <v-form>
-            <v-text-field
-              v-model="username"
-              type="text"
-              label="Username"
-              class="mt-0 pt-0 mx-5"
-            />
+            <v-text-field v-model="username" type="text" label="Username" class="mt-0 pt-0 mx-5" />
             <v-text-field
               v-model="password"
               type="password"
@@ -57,50 +65,31 @@
         </v-card-text>
         <!-- <v-checkbox :v-model="checkbox" label="Запомнить" class="mt-0 mx-8" /> -->
         <v-card-actions class="mt-16">
-          <v-btn class="container__button mx-auto" @click="overlay = !overlay"
-            >Войти</v-btn
-          >
+          <v-btn class="container__button mx-auto" @click="overlay = !overlay">Войти</v-btn>
         </v-card-actions>
       </v-card>
     </v-overlay>
-    <!-- <div v-if="$auth.loggedIn"> -->
-    <!-- {{ $auth.user.email }} -->
     <div v-if="currentUser.name">
       {{ currentUser.name }}
-      <!-- <nuxt-link to="/userLogin"> -->
-      <v-btn text class="mr-2" @click="LogoutUser">
-        Logout
-      </v-btn>
-      <!-- </nuxt-link> -->
+      <v-btn text class="mr-2" @click="LogoutUser">Logout</v-btn>
     </div>
     <div v-else>
       <v-btn text to="/userLogin">Login</v-btn>
 
       <v-btn text to="/userRegistration">Register</v-btn>
     </div>
-    <!-- </div> -->
-    <!-- <div v-else>
-      <nuxt-link to="/Login">
-        <v-btn text to="/userLogin">Login</v-btn>
-      </nuxt-link>
-      <v-btn text to="/userRegistration">Register</v-btn>
-    </div> -->
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex'
-// import adminUserList from '~/components/AdminUserList.vue'
 
 import LogoVideoService from './LogoVideoService/LogoVideoService.vue'
 import TextForm from './TextForm'
-// import ButtonV from './Button'
 export default {
   components: {
     LogoVideoService,
     TextForm,
-    // ButtonV,
-    // adminUserList,
   },
   props: {
     needButton: {
@@ -118,9 +107,7 @@ export default {
       password: '',
     }
   },
-  computed: {
-    ...mapState(['currentUser']),
-  },
+  computed: { ...mapState(['currentUser']) },
   mounted() {
     this.$store.dispatch('loadCurrentUser')
   },

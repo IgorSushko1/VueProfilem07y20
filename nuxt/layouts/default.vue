@@ -6,7 +6,6 @@ body {
 .basis {
   margin: 0 auto 0;
   max-width: 1440px;
-  // height: 100vh;
   display: table;
   height: 100%;
 

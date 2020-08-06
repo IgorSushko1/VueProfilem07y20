@@ -18,16 +18,7 @@
 
 <template>
   <v-layout column justify-center align-center>
-    <!-- <logo-video-service /> -->
-    <!-- <buttonV></buttonV> -->
-    <!-- <text-form /> -->
-    <!-- <check-box-boolean /> -->
-    <!-- <header-v :need-button="needButton" /> -->
-    <emoji-card
-      v-for="(smile, index) in emoji"
-      :key="index"
-      :get-smile="smile"
-    />
+    <emoji-card v-for="(smile, index) in emoji" :key="index" :get-smile="smile" />
     <!-- <footer-v /> -->
     <film-card
       v-for="(card, name, index) in listOfNews"
