@@ -27,9 +27,9 @@
         <logo-video-service />
       </nuxt-link>
       <text-form :need-button="true" />
-      <div v-if="$auth.loggedIn">
-        {{ $auth.user.useremail}}
-        <v-btn class="container__button" to="/indexMovie">Выйти</v-btn>
+      <div v-if="this.$store.state.user">
+        <div>{{this.$store.state.user}}</div>
+        <v-btn class="container__button" @click="LogoutUser">Выйти</v-btn>
       </div>
       <div v-else>
         <v-btn class="container__button" to="/userLogin">Войти</v-btn>
@@ -69,15 +69,6 @@
         </v-card-actions>
       </v-card>
     </v-overlay>
-    <div v-if="currentUser.name">
-      {{ currentUser.name }}
-      <v-btn text class="mr-2" @click="LogoutUser">Logout</v-btn>
-    </div>
-    <div v-else>
-      <v-btn text to="/userLogin">Login</v-btn>
-
-      <v-btn text to="/userRegistration">Register</v-btn>
-    </div>
   </div>
 </template>
 
@@ -105,16 +96,21 @@ export default {
       zIndex: 5,
       username: '',
       password: '',
+      name: '',
     }
   },
-  computed: { ...mapState(['currentUser']) },
+  computed: { ...mapState(['user']) },
   mounted() {
-    this.$store.dispatch('loadCurrentUser')
+    this.$store.dispatch('getFromLocalStorage')
+  },
+  beforeMount() {
+    // this.$store.dispatch('getFromLocalStorage')
   },
   methods: {
     login() {},
     LogoutUser() {
       this.$store.dispatch('LogoutUser')
+      this.$router.push('/indexMovie')
     },
   },
 }

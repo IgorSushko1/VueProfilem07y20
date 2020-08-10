@@ -1,70 +1,97 @@
 /* eslint-disable prettier/prettier */
-
-// import Api from '~/api/api-server'
+import axios from 'axios'
 
 export const state = () => ({
-  users: [],
-  currentUser: {
-    name: 'Test User',
-  },
+  user: undefined,
+  info: 'undefined',
+  token: '',
+  authenticated: false,
+  registration: false,
 })
 export const mutations = {
-  SET_USERS(state, users) {
-    state.users = users
-  },
   LOGOUT_USER(state) {
-    state.currentUser = {}
-    window.localStorage.currentUser = JSON.stringify({})
+    state.user = undefined
+    state.token = undefined
   },
-  SET_CURRENT_USER(state, user) {
-    state.currentUser = user
-    window.localStorage.currentUser = JSON.stringify(user)
+
+  SET_USER_TOKEN(state, token) {
+    state.token = token
+  },
+
+  SET_USER(state, user) {
+    state.user = user
+  },
+
+  REGISTRATION(state, val) {
+    state.registration = val
   },
 }
 
 export const actions = {
-  async loadUsers({ commit }) {
-    const response = await Api.getUsers()
-    commit('SET_USERS', response)
-    const user = JSON.parse(window.localStorage.currentUser)
-    commit('SET_CURRENT_USER', user)
-  },
-
-  loadCurrentUser({ commit }) {
-    const user = JSON.parse(window.localStorage.currentUser)
-    commit('SET_CURRENT_USER', user)
-  },
-
   LogoutUser({ commit }) {
-    commit('LOGOUT_USER')
-  },
-  async LoginUser({ commit }, loginInfo) {
-    try {
-      const response = await Api.loginInfo(loginInfo)
-      if (response.bool) {
-        commit('SET_CURRENT_USER', response.profile)
-      }
-      return response.profile.name
-    } catch {
-      return {
-        error:
-          'Email/password комбинация не корректна. Пожалуйста, введите корректные данные от своего профиля',
-      }
+    const token = window.sessionStorage.getItem('auth-token')
+    const user = window.sessionStorage.getItem('name')
+    // const email = window.sessionStorage.getItem('email')
+    console.log('логаут работает', user, token)
+    if (token && user) {
+      commit('LOGOUT_USER')
+      window.sessionStorage.setItem('name', '')
+      window.sessionStorage.setItem('auth-token', '')
     }
   },
 
-  async registeredUser({ commit }, registrationInfo) {
+  loginUserv2({ commit }, loginInfo) {
     try {
-      const response = await Api.createUser(registrationInfo)
-      if (response.bool) {
-        commit('SET_CURRENT_USER', response.profile)
-      }
-      debugger
-      return response.profile.name
+      axios
+        .post('http://localhost:3000/api/login', loginInfo)
+        .then((res) => {
+          window.sessionStorage.setItem('name', res.data.username)
+          window.sessionStorage.setItem('email', res.data.useremail)
+          window.sessionStorage.setItem('auth-token', res.data.token)
+          console.log(
+            'проверка записано ли в сессию',
+            window.sessionStorage.getItem('auth-token')
+          )
+          console.log(
+            'проверка записано ли в сессию',
+            window.sessionStorage.getItem('name'),
+            res.data.username
+          )
+        })
+        .catch((error) => console.log(error))
     } catch {
-      return {
-        error: 'Произошла ошибка. Попробуйте зарегистрироваться заново',
-      }
+      return {}
+    }
+  },
+
+  async registerUserv2({ commit }, registerInfo) {
+    try {
+      window.sessionStorage.setItem('auth-token', null)
+      window.sessionStorage.setItem('currentUser', null)
+
+      await axios
+        .post('http://localhost:3000/api/register', registerInfo)
+        .then((res) => {
+          window.sessionStorage.setItem('auth-token', res.data.token)
+          window.sessionStorage.setItem('currentUser', res.data.user)
+          commit('REGISTRATION', true)
+        })
+        .catch((error) => {
+          console.log(error, 'Произошла ошибка регистрации')
+        })
+    } catch {
+      return {}
+    }
+  },
+
+  getFromLocalStorage({ commit }) {
+    const token = window.sessionStorage.getItem('auth-token')
+    const user = window.sessionStorage.getItem('name')
+    const email = window.sessionStorage.getItem('email')
+
+    if (token && user) {
+      commit('SET_USER_TOKEN', token)
+      commit('SET_USER', user)
     }
   },
 }

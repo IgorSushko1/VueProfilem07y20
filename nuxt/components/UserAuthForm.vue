@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" @submit="submitForm(userInfo)">
+  <v-form v-model="valid" @submit="sendInfo">
     <v-text-field
       v-if="typeOfForm === 'registration'"
       v-model="userInfo.name"
@@ -47,10 +47,6 @@ export default {
       type: String,
       default: 'registration',
     },
-    submitForm: {
-      type: Function,
-      default() {},
-    },
     buttonText: {
       type: String,
       default: '',
@@ -74,28 +70,19 @@ export default {
   },
   computed: {},
   methods: {
+    sendInfo() {
+      if (this.valid && this.typeOfForm === 'registration') {
+        console.log('посылаю данные' + this.userInfo)
+        this.$emit('register', this.userInfo)
+      }
+      if (this.valid && this.typeOfForm === 'login') {
+        this.$emit('login', this.userInfo)
+      }
+    },
     setButton() {
-      // submitForm()
       if (this.typeOfForm === 'login') {
         // this.LoginUser(this.userInfo)
       } else if (this.typeOfForm === 'registration') {
-        // this.registerUser(this.userInfo)
-      }
-    },
-    async LoginUser(log) {
-      const user = await this.$store.dispatch('LoginUser', log)
-      if (user.error) {
-        alert(user.error)
-      } else {
-        alert('thanks for your signing in ' + user)
-      }
-    },
-    async registerUser(reg) {
-      const user = await this.$store.dispatch('registeredUser', reg)
-      if (user.error) {
-        alert(user.error)
-      } else {
-        alert('Thanks for your registration! ' + user.profile.name)
       }
     },
   },

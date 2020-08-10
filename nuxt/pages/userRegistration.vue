@@ -1,21 +1,28 @@
 <template>
-  <user-auth-form
-    type-of-form="registration"
-    :submit-form="registerUser"
-    button-text="Зарегистрироваться"
-  />
+  <div>
+    <div>
+      <user-auth-form
+        type-of-form="registration"
+        button-text="Зарегистрироваться"
+        @register="registerUser"
+      />
+    </div>
+  </div>
 </template>
 
 <script>
 import userAuthForm from '~/components/UserAuthForm.vue'
 
 export default {
-  components: {
-    userAuthForm,
+  components: { userAuthForm },
+  data() {
+    return {}
   },
+  mounted() {},
   methods: {
     registerUser(userInfo) {
-      alert('Работает registerUser!')
+      this.$store.dispatch('registerUserv2', userInfo)
+      this.$router.push('/userLogin')
     },
   },
 }

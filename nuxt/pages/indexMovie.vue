@@ -147,6 +147,11 @@ export default {
       tab: null,
     }
   },
+  beforeMount() {
+    // this.$store.dispatch('getFromLocalStorage')
+  },
+  mounted() {},
+
   methods: {},
 }
 </script>
