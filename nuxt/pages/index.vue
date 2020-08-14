@@ -67,7 +67,6 @@ import Vue from 'vue'
 import LogoVideoService from '~/components/LogoVideoService/LogoVideoService.vue'
 import ButtonV from '~/components/Button.vue'
 import TextForm from '~/components/TextForm.vue'
-import CheckBoxBoolean from '~/components/CheckBoxBoolean.vue'
 import HeaderV from '~/components/Header.vue'
 import EmojiCard from '~/components/EmojiCard.vue'
 import FooterV from '~/components/Footer.vue'
@@ -96,7 +95,6 @@ export default {
     LogoVideoService,
     ButtonV,
     TextForm,
-    CheckBoxBoolean,
     HeaderV,
     EmojiCard,
     FooterV,

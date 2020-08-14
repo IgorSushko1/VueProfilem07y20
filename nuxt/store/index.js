@@ -29,15 +29,8 @@ export const mutations = {
 
 export const actions = {
   LogoutUser({ commit }) {
-    const token = window.sessionStorage.getItem('auth-token')
-    const user = window.sessionStorage.getItem('name')
-    // const email = window.sessionStorage.getItem('email')
-    console.log('логаут работает', user, token)
-    if (token && user) {
-      commit('LOGOUT_USER')
-      window.sessionStorage.setItem('name', '')
-      window.sessionStorage.setItem('auth-token', '')
-    }
+    window.localStorage.clear()
+    commit('LOGOUT_USER')
   },
 
   loginUserv2({ commit }, loginInfo) {
@@ -45,18 +38,9 @@ export const actions = {
       axios
         .post('http://localhost:3000/api/login', loginInfo)
         .then((res) => {
-          window.sessionStorage.setItem('name', res.data.username)
-          window.sessionStorage.setItem('email', res.data.useremail)
-          window.sessionStorage.setItem('auth-token', res.data.token)
-          console.log(
-            'проверка записано ли в сессию',
-            window.sessionStorage.getItem('auth-token')
-          )
-          console.log(
-            'проверка записано ли в сессию',
-            window.sessionStorage.getItem('name'),
-            res.data.username
-          )
+          window.localStorage.setItem('name', res.data.username)
+          window.localStorage.setItem('email', res.data.useremail)
+          window.localStorage.setItem('auth-token', res.data.token)
         })
         .catch((error) => console.log(error))
     } catch {
@@ -64,16 +48,16 @@ export const actions = {
     }
   },
 
-  async registerUserv2({ commit }, registerInfo) {
+  registerUserv2({ commit }, registerInfo) {
     try {
-      window.sessionStorage.setItem('auth-token', null)
-      window.sessionStorage.setItem('currentUser', null)
+      window.localStorage.clear()
 
-      await axios
+      axios
         .post('http://localhost:3000/api/register', registerInfo)
         .then((res) => {
-          window.sessionStorage.setItem('auth-token', res.data.token)
-          window.sessionStorage.setItem('currentUser', res.data.user)
+          window.localStorage.setItem('auth-token', res.data.token)
+          window.localStorage.setItem('name', res.data.username)
+          window.localStorage.setItem('email', res.data.useremail)
           commit('REGISTRATION', true)
         })
         .catch((error) => {
@@ -85,13 +69,36 @@ export const actions = {
   },
 
   getFromLocalStorage({ commit }) {
-    const token = window.sessionStorage.getItem('auth-token')
-    const user = window.sessionStorage.getItem('name')
-    const email = window.sessionStorage.getItem('email')
-
-    if (token && user) {
+    const token = window.localStorage.getItem('auth-token')
+    const name = window.localStorage.getItem('name')
+    if (token && name != null) {
       commit('SET_USER_TOKEN', token)
-      commit('SET_USER', user)
+      commit('SET_USER', name)
+    }
+  },
+
+  updateUserName({ commit }, name) {
+    try {
+      const user = {
+        useremail: window.localStorage.getItem('email'),
+        username: name,
+      }
+      axios
+        .post('http://localhost:3000/api/updateName', user, {
+          headers: {
+            Authorization: window.localStorage.getItem('auth-token'),
+          },
+        })
+        .then((res) => {
+          window.localStorage.setItem('auth-token', res.data.token)
+          window.localStorage.setItem('name', res.data.user.username)
+          window.localStorage.setItem('email', res.data.user.useremail)
+        })
+        .catch((error) => {
+          console.log(error, 'Произошла ошибка регистрации')
+        })
+    } catch {
+      return {}
     }
   },
 }

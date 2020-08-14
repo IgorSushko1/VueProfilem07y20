@@ -1,14 +1,10 @@
 const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const User = require('../models/Users')
-// const keys = require('../config/keys')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.login = async function (req, res, next) {
   const candidate = await User.findOne({ useremail: req.body.email })
-  console.log(
-    Object.keys(req.body) + ' -- проверка, какой email получает сервер'
-  )
 
   if (candidate) {
     const passwordResult = () => {
@@ -19,8 +15,6 @@ module.exports.login = async function (req, res, next) {
 
       return candidate.userpassword === hash
     }
-
-    // const checkLiveSpan
 
     if (passwordResult) {
       const token = jwt.sign(
@@ -34,12 +28,7 @@ module.exports.login = async function (req, res, next) {
         'jwt',
         { expiresIn: 60 * 4 }
       )
-      console.log(' Валидация прошла успешно!')
       console.log(jwt.verify(token, 'jwt'), ' Валидация прошла успешно!')
-      // const diff =
-      //   Number(jwt.verify(token, 'jwt').exp) -
-      //   Number(jwt.verify(token, 'jwt').iat)
-      // console.log(diff, ' Валидация прошла успешно!')
 
       res.status(200)
       res.json({
@@ -64,12 +53,8 @@ module.exports.login = async function (req, res, next) {
 }
 
 module.exports.register = async function (req, res, next) {
-  console.log(req.body.email)
-  console.log('что-то происходит')
-
   const candidate = await User.findOne({ useremail: req.body.email })
   if (candidate) {
-    console.log('Такой email уже занят. Попробуйте другой!')
     res.status(409)
     res.json({ message: 'Такой email уже занят. Попробуйте другой!' })
   } else {
@@ -82,18 +67,43 @@ module.exports.register = async function (req, res, next) {
         .toString('hex'),
     })
     try {
-      console.log('Пытается создать логин и пароль...')
-      console.log(user)
-
       await user.save(function (err) {
         if (err) return errorHandler(err)
-        // saved!
         console.log('User successfully saved.')
       })
-      // res.status(201)
+      res.status(201)
       res.json(user)
     } catch (e) {
       errorHandler(res, e)
     }
+  }
+}
+
+module.exports.updateName = async function (req, res, next) {
+  try {
+    // jwt.verify(req.headers.authorization.split(' ')[1], 'jwt', (e, payload) => {
+    // if (e) {}
+    // else {}
+    // })
+    let user = await User.findOneAndUpdate(
+      { useremail: req.body.useremail },
+      { username: req.body.username },
+      { useFindAndModify: false }
+    )
+    const candidate = await User.findOne({ useremail: req.body.useremail })
+    user = {
+      useremail: candidate.useremail,
+      username: candidate.username,
+    }
+    res.status(200)
+    res.json({
+      token: req.headers.authorization,
+      user,
+      message: 'Работаем дальше!',
+    })
+  } catch (e) {
+    console.log(e)
+    res.status(500)
+    res.json({ message: e })
   }
 }

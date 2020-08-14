@@ -72,7 +72,6 @@ export default {
   methods: {
     sendInfo() {
       if (this.valid && this.typeOfForm === 'registration') {
-        console.log('посылаю данные' + this.userInfo)
         this.$emit('register', this.userInfo)
       }
       if (this.valid && this.typeOfForm === 'login') {

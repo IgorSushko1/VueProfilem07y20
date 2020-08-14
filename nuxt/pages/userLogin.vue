@@ -23,9 +23,9 @@ export default {
   },
   methods: {
     async loginUser(userInfo) {
-      await this.$store.dispatch('loginUserv2', userInfo)
-      // alert('Работает loginUser!', this.$store.state.token)
       this.$router.push('/indexMovie')
+
+      await this.$store.dispatch('loginUserv2', userInfo)
     },
   },
 }
