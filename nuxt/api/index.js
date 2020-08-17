@@ -1,15 +1,15 @@
+import keys from './keys'
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors')
+// const cors = require('cors')
 const bodyParser = require('body-parser')
-const session = require('express-session')
-const passport = require('passport')
-
+// const session = require('express-session')
+// const passport = require('passport')
 const app = express()
 
 // app.use(cors())
 mongoose
-  .connect('mongodb://localhost:27017/dbForNuxt', {
+  .connect(`mongodb://localhost:27017/${keys.dbName}`, {
     useUnifiedTopology: true,
     useNewUrlParser: true,
   })

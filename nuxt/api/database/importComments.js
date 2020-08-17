@@ -1,15 +1,15 @@
-const assert = require('assert')
 const mongoose = require('mongoose')
-const User = require('../api/models/Users')
-const Film = require('../api/models/Films')
+const keys = require('../keys')
+const Film = require('../models/Films')
 
 const { Schema } = mongoose
-mongoose.connect('mongodb://localhost:27017/dbForNuxt', {
+
+mongoose.connect(`mongodb://localhost:27017/${keys.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 
-let data = [
+const data = [
   {
     fullName: 'Once Upon A Time In Hollywood',
     comment:
@@ -36,8 +36,6 @@ let data = [
 const commentSchema = new Schema({
   fullName: {
     type: String,
-    unique: true,
-    required: true,
   },
   author: {
     type: String,

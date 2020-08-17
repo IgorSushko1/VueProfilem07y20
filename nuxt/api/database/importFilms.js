@@ -1,5 +1,7 @@
 const assert = require('assert')
 const mongoose = require('mongoose')
+const keys = require('../keys')
+const Film = require('../models/Films')
 
 const data = [
   {
@@ -57,15 +59,12 @@ const data = [
   },
 ]
 
-mongoose.connect('mongodb://localhost:27017/dbForNuxt', {
+mongoose.connect(`mongodb://localhost:27017/${keys.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
 
-const Film = require('../api/models/Films')
-
 Film.collection.insertMany(data, function (err, r) {
   assert.equal(null, err)
-  // assert.equal(4, r.insertedCount)
   console.log('Добавляю файлы!')
 })

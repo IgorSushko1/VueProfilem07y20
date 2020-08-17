@@ -1,5 +1,5 @@
 Для сохранения списка фильмов в бд
-node static/importToMdb.js
+node api/database/importFilms.js
 
 Для сохранения списка комментарием, с добавлением id фильма, чтобы реализовать отображение
-node static/importComments.js
+node api/database/importComments.js
