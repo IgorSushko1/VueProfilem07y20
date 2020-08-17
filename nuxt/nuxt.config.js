@@ -1,5 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
+import axios from 'axios'
 
+// const list = ['aboutFilm/1', 'aboutFilm/1', 'aboutFilm/1']
+const list = async () => {
+  const res = await axios.get('http://localhost:3000/api/films')
+  console.log(res.data)
+  return res.data.map((el) => `aboutFilm/${el._id}`)
+}
 export default {
   /*
    ** Nuxt rendering mode
@@ -38,6 +45,8 @@ export default {
       },
     ],
   },
+
+  generate: { routes: list },
   /*
    ** Global CSS
    */
@@ -91,9 +100,7 @@ export default {
   //     handler: '~/serverMiddleware/api-server.js',
   //   },
   // ],
-  serverMiddleware: {
-    '/api': '~/api',
-  },
+  serverMiddleware: { '/api': '~/api' },
 
   /*
    ** vuetify module configuration

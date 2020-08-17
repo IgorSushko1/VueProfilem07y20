@@ -4,27 +4,30 @@
 }
 </style>
 <template>
-  <v-card max-width="280" outlined class="mx-1 film-card" link>
-    <v-hover>
-      <template v-slot:default="{ hover }">
-        <v-card class="mx-auto" max-width="280">
-          <v-img class="white--text align-end" height="370px" :src="posterImage">
-            <!-- <v-card-text>{{ filmDescriptionOnCard }}</v-card-text> -->
-          </v-img>
-          <v-fade-transition height="370px">
-            <v-overlay v-if="hover" absolute color="#333333" :opacity="0.8">
-              <v-card-text class="d-block">
-                {{
-                filmDescriptionOnCard
-                }}
-              </v-card-text>
-            </v-overlay>
-          </v-fade-transition>
-        </v-card>
-      </template>
-    </v-hover>
-    <v-card-title>{{ cardsTitle }}</v-card-title>
-  </v-card>
+  <nuxt-link :to="toLink">
+    <v-card max-width="280" outlined class="mx-1 film-card">
+      <!-- <v-card max-width="280" outlined class="mx-1 film-card" link @click="linkV"> -->
+      <v-hover>
+        <template v-slot:default="{ hover }">
+          <v-card class="mx-auto" max-width="280">
+            <v-img class="white--text align-end" height="370px" :src="posterImage">
+              <!-- <v-card-text>{{ filmDescriptionOnCard }}</v-card-text> -->
+            </v-img>
+            <v-fade-transition height="370px">
+              <v-overlay v-if="hover" absolute color="#333333">
+                <v-card-text class="d-block">
+                  {{
+                  filmDescriptionOnCard
+                  }}
+                </v-card-text>
+              </v-overlay>
+            </v-fade-transition>
+          </v-card>
+        </template>
+      </v-hover>
+      <v-card-title>{{ cardsTitle }}</v-card-title>
+    </v-card>
+  </nuxt-link>
 </template>
 
 <script>
@@ -42,10 +45,15 @@ export default {
       type: String,
       required: true,
     },
+    pageLink: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
       overlay: false,
+      nuxt: true,
     }
   },
   computed: {
@@ -62,6 +70,18 @@ export default {
       return this.translatedName
         ? this.translatedName
         : 'Заполни название карточки'
+    },
+    toLink() {
+      return `aboutFilm/${this.pageLink}`
+    },
+  },
+  methods: {
+    linkV() {
+      const lnk =
+        this.pageLink !== ''
+          ? `/aboutFilm/${this.pageLink}`
+          : `/aboutFilm/${this.pageLink}`
+      this.$router.push(`/${lnk}`)
     },
   },
 }

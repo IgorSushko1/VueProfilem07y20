@@ -25,6 +25,14 @@ export const mutations = {
   REGISTRATION(state, val) {
     state.registration = val
   },
+
+  SET_FILMS(state) {
+    state.films = JSON.parse(window.localStorage.getItem('films'))
+  },
+
+  SET_COMMENTS(state) {
+    state.comments = window.localStorage.getItem('comments')
+  },
 }
 
 export const actions = {
@@ -99,6 +107,47 @@ export const actions = {
         })
     } catch {
       return {}
+    }
+  },
+
+  async getFilms({ commit }) {
+    try {
+      await axios.get('http://localhost:3000/api/films').then((res) => {
+        window.localStorage.setItem('films', JSON.stringify(res.data))
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  setFilms({ commit }) {
+    try {
+      if (window.localStorage.getItem('films')) {
+        commit('SET_FILMS')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  getComments({ commit }, info) {
+    console.log(JSON.stringify(info))
+    try {
+      axios.post('http://localhost:3000/api/comments', info).then((res) => {
+        console.log(res.data)
+        window.localStorage.setItem('comments', res.data)
+      })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+  setComments({ commit }) {
+    try {
+      if (window.localStorage.getItem('comments')) {
+        commit('SET_COMMENTS')
+      }
+    } catch (error) {
+      console.log(error)
     }
   },
 }

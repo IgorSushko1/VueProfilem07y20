@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const Comments = require('../models/Comments')
 const errorHandler = require('../utils/errorHandler')
 
@@ -17,8 +16,10 @@ module.exports.create = async function (req, res, next) {
 }
 
 module.exports.getAll = async function (req, res, next) {
+  console.log(req.body)
   try {
-    const comments = await Comments.find({ film: req.body.film._id })
+    const comments = await Comments.find({ profileLink: req.body.film })
+    console.log(comments)
     setTimeout(() => {
       res.status(200).json(comments)
     }, 1000)

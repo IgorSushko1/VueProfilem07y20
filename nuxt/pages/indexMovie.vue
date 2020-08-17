@@ -59,11 +59,12 @@
           </v-row>
           <v-row class="ma-0 pa-0">
             <film-card
-              v-for="(card, index) in listOfNews"
+              v-for="(card, index) in this.$store.state.films"
               :key="index"
               :image-name="card.picName"
               :film-description="card.description"
               :translated-name="card.translatedName"
+              :page-link="card._id"
               class="mx-2"
             />
           </v-row>
@@ -86,7 +87,7 @@
         <v-card flat>
           <v-virtual-scroll
             id="style-3"
-            :items="Object.values(listOfChannel)"
+            :items="Object.values(tvProgrammList)"
             height="518"
             width="1180"
             item-height="170"
@@ -112,6 +113,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 import FilmCard from '~/components/FilmCard.vue'
 import EmojiCard from '~/components/EmojiCard.vue'
 import TvProgramm from '~/components/TVProgramm.vue'
@@ -141,15 +144,18 @@ export default {
       post: {},
       tvProgrammList,
       newsList,
-      listOfNews: newsList,
       changeTabs: ['Фильмы', 'Телеканалы'],
-      listOfChannel: tvProgrammList,
       tab: null,
     }
   },
+  computed: { ...mapState(['films']) },
+
   beforeMount() {
-    // this.$store.dispatch('getFromLocalStorage')
+    this.$store.dispatch('getFilms')
+    this.$store.dispatch('setFilms')
+    console.log(this.$store.state.films, ' вывод один')
   },
+
   mounted() {},
 
   methods: {},

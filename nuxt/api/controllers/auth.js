@@ -5,7 +5,7 @@ const errorHandler = require('../utils/errorHandler')
 
 module.exports.login = async function (req, res, next) {
   const candidate = await User.findOne({ useremail: req.body.email })
-
+  console.log(candidate)
   if (candidate) {
     const passwordResult = () => {
       const salt = crypto.randomBytes(16).toString('hex')
