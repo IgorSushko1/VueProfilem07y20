@@ -65,6 +65,8 @@
     <div v-else class="comments__auth-decline">Авторизуйтесь, чтобы добавить комментарий!</div>
     <!-- {{сommentInfo}} -- длинна массива -->
     {{this.$route.params.id}}
+    {{this.$store.state.user}}
+    <!-- {{this.$store.state.token}} -->
     <div v-if="commentInfo.length > 0">
       <v-card
         v-for="(comment, index) in commentInfo"
@@ -73,7 +75,7 @@
         outlined
       >
         <div class="comments__text flex-grow-1">
-          <v-card-title>{{ comment.author }}</v-card-title>
+          <v-card-title>{{ comment.authorName }}</v-card-title>
           <v-card-text>{{ comment.comment }}</v-card-text>
         </div>
 
@@ -90,7 +92,7 @@
 export default {
   props: {
     commentInfo: {
-      type: Array,
+      type: Object,
       required: true,
       default: () => {
         return []
@@ -101,17 +103,14 @@ export default {
     return {
       autoGrow: true,
       newComment: '',
-      // commentInfo: [],
     }
   },
   computed: {},
   methods: {
     submit() {
-      alert(this.newComment)
       const answer = {
         comment: this.newComment,
-        filmId: this.$route.params.id,
-        user: this.$store.state.user,
+        filmLink: this.$route.params.id,
       }
       this.$emit('create-new-comment', answer)
     },

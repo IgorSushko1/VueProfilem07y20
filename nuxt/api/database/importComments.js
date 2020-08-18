@@ -15,21 +15,21 @@ const data = [
     comment:
       'По моему ни на что не претендующему мнению, если человеку нужна особая причина, чтобы посмотреть Тарантино, то тут одно из двух: либо совсем уж вкусы разнятся, либо кинематограф, как явление человеку безразличен. Во всех остальных случаях имя режиссера говорит само за себя — надо смотреть.',
     author: 'Nickname',
-    profileLink: 'undefined',
+    filmLink: 'undefined',
   },
   {
     fullName: 'Once Upon A Time In Hollywood',
     comment:
       'Мой комментарий о сюжете что-то кроме завязки категорически бессмысленно. Это фильм Тарантино — его надо смотреть самому.',
     author: 'MyName',
-    profileLink: 'undefined',
+    filmLink: 'undefined',
   },
   {
     fullName: 'Once Upon A Time In Hollywood',
     comment:
       'Главный эмоциональный удар лента наносит в самом конце. Когда фильм после мастерского нагнетания сбрасывает оковы и пускается во все тяжкие. Финальные сцены являют собой нечто фантастическое. Они веселят и напрягают одновременно. Это действительно шедевральный отрывок, который будут помнить, но он ничто по сравнению с самым последним диалогом, от которого становится очень хорошо, но в то же время бесконечно грустно.',
     author: 'pasha_cinema',
-    profileLink: 'undefined',
+    filmLink: 'undefined',
   },
 ]
 
@@ -37,12 +37,17 @@ const commentSchema = new Schema({
   fullName: {
     type: String,
   },
-  author: {
+  authorLink: {
     type: String,
-    unique: true,
-    required: true,
+    unique: false,
+    required: false,
   },
-  profileLink: {
+  authorName: {
+    type: String,
+    unique: false,
+    required: false,
+  },
+  filmLink: {
     type: String,
     unique: true,
     required: true,
@@ -62,8 +67,8 @@ data.forEach(async (element) => {
       const comment = await new Comment({
         fullName: element.fullName,
         comment: element.comment,
-        author: element.author,
-        profileLink: film._id,
+        authorName: element.author,
+        filmLink: film._id,
       })
       await comment.save(function (err) {
         if (err) console.log(err)

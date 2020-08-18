@@ -1,9 +1,26 @@
 const mongoose = require('mongoose')
 const { Schema } = mongoose
 
-const commentsSchema = new Schema({
-  film: String,
-  comment: String,
-  author: String,
+const commentSchema = new Schema({
+  fullName: { type: String },
+  authorLink: {
+    type: String,
+    unique: false,
+    required: false,
+  },
+  authorName: {
+    type: String,
+    unique: false,
+    required: false,
+  },
+  filmLink: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  comment: {
+    type: String,
+    required: true,
+  },
 })
-module.exports = mongoose.model('comments', commentsSchema)
+module.exports = mongoose.model('comments', commentSchema)

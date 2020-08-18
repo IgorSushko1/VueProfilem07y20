@@ -41,7 +41,6 @@ export default {
       return this.$store.state.comments
     },
     createNewComment(answer) {
-      alert('Новый комментарий будет создан из метода _id!' + `${answer}`)
       this.$store.dispatch('createComment', answer)
     },
   },

@@ -26,7 +26,7 @@ module.exports.login = async function (req, res, next) {
           },
         },
         'jwt',
-        { expiresIn: 60 * 4 }
+        { expiresIn: 60 * 60 }
       )
       console.log(jwt.verify(token, 'jwt'), ' Валидация прошла успешно!')
 

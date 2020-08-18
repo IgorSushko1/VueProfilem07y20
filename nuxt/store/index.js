@@ -95,9 +95,7 @@ export const actions = {
       }
       axios
         .post('http://localhost:3000/api/updateName', user, {
-          headers: {
-            Authorization: window.localStorage.getItem('auth-token'),
-          },
+          headers: { Authorization: window.localStorage.getItem('auth-token') },
         })
         .then((res) => {
           window.localStorage.setItem('auth-token', res.data.token)
@@ -126,6 +124,8 @@ export const actions = {
   async getComments({ commit }, info) {
     try {
       console.log('выполняется при перезагрузке страницы')
+      console.log(this.state.token, ' какой токен отправляется')
+
       await axios
         .post('http://localhost:3000/api/comments', { film: info })
         .then((res) => {
@@ -138,10 +138,18 @@ export const actions = {
 
   async createComment({ commit }, comment) {
     try {
+      console.log('работает ли в сторе createComment')
+      console.log(this.state.token, 'работает ли в сторе createComment')
+
       await axios
-        .post('http://localhost3000/api/comments/new', comment)
+        .post('http://localhost:3000/api/comment/new', comment, {
+          headers: { authorization: this.state.token },
+        })
         .then((res) => {
           commit('SET_COMMENTS', res.data)
+        })
+        .catch((error) => {
+          console.log(error, 'Произошла ошибка создания нового комментария')
         })
     } catch (error) {
       console.log(error)
