@@ -81,7 +81,7 @@ export default {
         this.pageLink !== ''
           ? `/aboutFilm/${this.pageLink}`
           : `/aboutFilm/${this.pageLink}`
-      this.$router.push(`/${lnk}`)
+      this.$router.push(`/aboutFilm/${this.pageLink}`)
     },
   },
 }

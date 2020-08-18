@@ -1,6 +1,34 @@
-<style lang="scss" scoped>
+<style lang="scss">
+.index-movie {
+  display: block;
+  position: relative;
+  max-width: 1180px;
+  margin: auto;
+
+  &__header-switch-card {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 33px;
+    font-stretch: 0.01;
+    letter-spacing: 0.01px;
+    text-transform: capitalize;
+  }
+
+  &__header {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    text-align: right;
+    margin: 0 0 16px 24px;
+  }
+}
 #style-3::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px #bdbdbd;
+  box-shadow: inset 0 0 6px #bdbdbd;
   background-color: #f5f5f5;
   border-radius: 10px;
 }
@@ -17,116 +45,125 @@
 </style>
 
 <template>
-  <v-layout column justify-center align-center>
-    <emoji-card v-for="(smile, index) in emoji" :key="index" :get-smile="smile" />
-    <!-- <footer-v /> -->
-    <film-card
-      v-for="(card, name, index) in listOfNews"
-      :key="index"
-      :image-name="card.picName"
-      :film-description="card.description"
-      :translated-name="card.translatedName"
-    />
-    <v-virtual-scroll
-      id="style-3"
-      :items="Object.values(listOfChannel)"
-      height="518"
-      width="1180"
-      item-height="170"
-    >
-      <template v-slot="{ item }">
-        <v-list-item :key="item">
-          <v-list-item-content>
-            <tv-programm
-              :key="item.name"
-              :tv-channel-name="item.name"
-              :tv-channel-image="item.image"
-              :tv-channel-programm="item.programms"
+  <div class="index-movie">
+    <v-tabs v-model="tab" centered background-color="transparent" color="red" class="mt-2">
+      <v-tab
+        v-for="item in changeTabs"
+        :key="item"
+        class="index-movie__header-switch-card"
+      >{{ item }}</v-tab>
+      <v-tab-item>
+        <v-card flat>
+          <v-row class="mt-6">
+            <span class="index-movie__header text font-weight-bold">🔥 Новинки</span>
+          </v-row>
+          <v-row class="ma-0 pa-0">
+            <film-card
+              v-for="(card) in this.$store.state.films"
+              :key="card._id"
+              :image-name="card.picName"
+              :film-description="card.description"
+              :translated-name="card.translatedName"
+              :page-link="card._id"
+              class="mx-2"
             />
-          </v-list-item-content>
-        </v-list-item>
-      </template>
-    </v-virtual-scroll>
-    <full-film-card
-      v-for="(obj, name, index) in Object.values(listOfNews)"
-      :key="index"
-      :description-film="obj"
-      :image-name="obj.picName"
-    />
-    <div v-for="(obj, name, index) in Object.values(listOfNews)" :key="index">
-      <comment-card :comment-info="obj" />
-    </div>
-
-    <nuxt-link to="/indexMovie">Home page</nuxt-link>
-  </v-layout>
+          </v-row>
+          <v-row>
+            <div class="index-movie__header font-weight-bold">Жанры</div>
+          </v-row>
+          <v-row class="ma-0">
+            <emoji-card
+              v-for="(smile, index) in emoji"
+              :key="smile"
+              :emoji-color="emojiColor[index]"
+              :emoji-description="emojiDescription[index]"
+              :get-smile="smile"
+              class="ma-0"
+            />
+          </v-row>
+        </v-card>
+      </v-tab-item>
+      <v-tab-item>
+        <v-card flat>
+          <v-virtual-scroll
+            id="style-3"
+            :items="Object.values(tvProgrammList)"
+            height="518"
+            width="1180"
+            item-height="170"
+          >
+            <template v-slot="{ item }">
+              <v-list-item :key="item">
+                <v-list-item-content>
+                  <tv-programm
+                    :key="item.name"
+                    :tv-channel-name="item.name"
+                    :tv-channel-image="item.image"
+                    :tv-channel-programm="item.programms"
+                  />
+                </v-list-item-content>
+              </v-list-item>
+            </template>
+          </v-virtual-scroll>
+        </v-card>
+      </v-tab-item>
+    </v-tabs>
+    <!-- <div>{{ tvProgrammList }}</div> -->
+  </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import { mapState } from 'vuex'
 
-import LogoVideoService from '~/components/LogoVideoService/LogoVideoService.vue'
-import ButtonV from '~/components/Button.vue'
-import TextForm from '~/components/TextForm.vue'
-import HeaderV from '~/components/Header.vue'
-import EmojiCard from '~/components/EmojiCard.vue'
-import FooterV from '~/components/Footer.vue'
 import FilmCard from '~/components/FilmCard.vue'
+import EmojiCard from '~/components/EmojiCard.vue'
 import TvProgramm from '~/components/TVProgramm.vue'
-import FullFilmCard from '~/components/FullFilmCard.vue'
-import CommentCard from '~/components/Comment.vue'
 
-import newsList from '~/static/newsList.json'
+// import newsList from '~/static/newsList.json'
 import tvProgrammList from '~/static/tvProgramm.json'
 
-Vue.component('product', {
-  props: {
-    premium: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  template: `
-  <div>{{premium}}</div>
-  `,
-})
-
 export default {
+  layout: 'default',
   components: {
-    LogoVideoService,
-    ButtonV,
-    TextForm,
-    HeaderV,
-    EmojiCard,
-    FooterV,
     FilmCard,
+    EmojiCard,
     TvProgramm,
-    FullFilmCard,
-    CommentCard,
   },
+
   data() {
     return {
-      needButton: true,
-      emoji: ['chost', 'happy', 'ufo', 'cry'],
+      name: 'World',
+      emoji: ['happy', 'cry', 'ufo', 'chost'],
       emojiColor: [
-        ['#828282', '#333333'],
         ['#f2c94c', '#f29a4a'],
+        ['#F2994A', '#EB5757'],
         ['#56CCF2', '#2F80ED'],
-        ['#F2994', '#EB5757'],
+        ['#828282', '#333333'],
       ],
-      poster: 'Hustlers.png',
-      description: 'Some description',
-      filmName: 'Бэтмен',
-      listOfNews: newsList,
-      listOfChannel: tvProgrammList,
+      emojiDescription: ['Комедии', 'Драмы', 'Фантастика', 'Ужасы'],
+      post: {},
+      tvProgrammList,
+      filmList: [],
+      changeTabs: ['Фильмы', 'Телеканалы'],
+      tab: null,
     }
   },
   computed: {
-    header() {
-      return 1
-    },
+    // ...mapState(['films'])
   },
-  methods: {
-    handleAddCard() {},
+  updated() {
+    // this.filmList = this.films
   },
+  beforeCreate() {
+    this.$store.dispatch('getFilms')
+  },
+  created() {},
+  beforeMount() {},
+
+  mounted() {
+    // this.filmList = this.$store.state.films
+  },
+
+  methods: {},
 }
 </script>

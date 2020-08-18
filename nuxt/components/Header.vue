@@ -23,7 +23,7 @@
 <template>
   <div>
     <div class="container__header justify-space-between">
-      <nuxt-link to="/indexMovie">
+      <nuxt-link to="/">
         <logo-video-service />
       </nuxt-link>
       <text-form :need-button="true" />
@@ -129,7 +129,7 @@ export default {
     login() {},
     LogoutUser() {
       this.$store.dispatch('LogoutUser')
-      this.$router.push('/indexMovie')
+      this.$router.push('/')
     },
     async onClickOutside() {
       if (this.active) {

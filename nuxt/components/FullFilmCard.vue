@@ -19,9 +19,9 @@
     <v-row>
       <v-col class="film-card__image-container">
         <!-- Колонка 1 -->
-        <img :src="posterImage" alt="" />
+        <img :src="posterImage" alt />
       </v-col>
-      <v-col>
+      <v-col class="ml-10">
         <v-row>
           <v-col cols="2">Название</v-col>
           <v-col cols="10">{{ descriptionFilm.translatedName }}</v-col>
@@ -45,10 +45,6 @@
 <script>
 export default {
   props: {
-    imageName: {
-      type: String,
-      required: true,
-    },
     descriptionFilm: {
       type: Object,
       required: true,
@@ -59,7 +55,9 @@ export default {
   },
   computed: {
     posterImage() {
-      const name = this.imageName ? this.imageName : 'Batman.png'
+      const name = this.descriptionFilm.picName
+        ? this.descriptionFilm.picName
+        : 'Batman.png'
       return '/posters/' + name
     },
   },

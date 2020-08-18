@@ -23,8 +23,7 @@ export default {
   },
   methods: {
     async loginUser(userInfo) {
-      this.$router.push('/indexMovie')
-
+      this.$router.push('/')
       await this.$store.dispatch('loginUserv2', userInfo)
     },
   },

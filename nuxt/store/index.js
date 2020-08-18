@@ -7,6 +7,8 @@ export const state = () => ({
   token: '',
   authenticated: false,
   registration: false,
+  films: [],
+  comments: [],
 })
 export const mutations = {
   LOGOUT_USER(state) {
@@ -26,12 +28,12 @@ export const mutations = {
     state.registration = val
   },
 
-  SET_FILMS(state) {
-    state.films = JSON.parse(window.localStorage.getItem('films'))
+  SET_FILMS(state, films) {
+    state.films = films
   },
 
-  SET_COMMENTS(state) {
-    state.comments = window.localStorage.getItem('comments')
+  SET_COMMENTS(state, comments) {
+    state.comments = comments
   },
 }
 
@@ -112,40 +114,35 @@ export const actions = {
 
   async getFilms({ commit }) {
     try {
+      console.log('выполняется при перезагрузке страницы')
       await axios.get('http://localhost:3000/api/films').then((res) => {
-        window.localStorage.setItem('films', JSON.stringify(res.data))
+        commit('SET_FILMS', res.data)
       })
     } catch (error) {
       console.log(error)
     }
   },
 
-  setFilms({ commit }) {
+  async getComments({ commit }, info) {
     try {
-      if (window.localStorage.getItem('films')) {
-        commit('SET_FILMS')
-      }
+      console.log('выполняется при перезагрузке страницы')
+      await axios
+        .post('http://localhost:3000/api/comments', { film: info })
+        .then((res) => {
+          commit('SET_COMMENTS', res.data)
+        })
     } catch (error) {
       console.log(error)
     }
   },
 
-  getComments({ commit }, info) {
-    console.log(JSON.stringify(info))
+  async createComment({ commit }, comment) {
     try {
-      axios.post('http://localhost:3000/api/comments', info).then((res) => {
-        console.log(res.data)
-        window.localStorage.setItem('comments', res.data)
-      })
-    } catch (error) {
-      console.log(error)
-    }
-  },
-  setComments({ commit }) {
-    try {
-      if (window.localStorage.getItem('comments')) {
-        commit('SET_COMMENTS')
-      }
+      await axios
+        .post('http://localhost3000/api/comments/new', comment)
+        .then((res) => {
+          commit('SET_COMMENTS', res.data)
+        })
     } catch (error) {
       console.log(error)
     }
