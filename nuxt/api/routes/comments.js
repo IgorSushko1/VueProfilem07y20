@@ -6,4 +6,6 @@ router.post('/comments', controller.getAll)
 
 router.post('/comment/new', controller.create)
 
+router.post('/comment/delete', controller.delete)
+
 module.exports = router

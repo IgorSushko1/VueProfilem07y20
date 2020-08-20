@@ -2,6 +2,7 @@ const crypto = require('crypto')
 const jwt = require('jsonwebtoken')
 const User = require('../models/Users')
 const errorHandler = require('../utils/errorHandler')
+const Comments = require('../models/Comments')
 
 module.exports.login = async function (req, res, next) {
   const candidate = await User.findOne({ useremail: req.body.email })
@@ -36,11 +37,6 @@ module.exports.login = async function (req, res, next) {
         useremail: candidate.useremail,
         userid: candidate._id,
         username: candidate.username,
-        user: {
-          email: candidate.useremail,
-          userid: candidate._id,
-          username: candidate.username,
-        },
       })
     } else {
       res.status(401)
@@ -79,31 +75,52 @@ module.exports.register = async function (req, res, next) {
   }
 }
 
-module.exports.updateName = async function (req, res, next) {
-  try {
-    // jwt.verify(req.headers.authorization.split(' ')[1], 'jwt', (e, payload) => {
-    // if (e) {}
-    // else {}
-    // })
-    let user = await User.findOneAndUpdate(
-      { useremail: req.body.useremail },
-      { username: req.body.username },
-      { useFindAndModify: false }
-    )
-    const candidate = await User.findOne({ useremail: req.body.useremail })
-    user = {
-      useremail: candidate.useremail,
-      username: candidate.username,
+module.exports.updateName = function (req, res, next) {
+  jwt.verify(
+    req.headers.authorization.split(' ')[1],
+    'jwt',
+    async (e, payload) => {
+      if (e) {
+      } else {
+        try {
+          let user = await User.findOneAndUpdate(
+            { useremail: req.body.useremail },
+            { username: req.body.username },
+            { useFindAndModify: false }
+          )
+
+          const candidate = await User.findOne({
+            useremail: req.body.useremail,
+          })
+          await Comments.updateMany(
+            { authorLink: candidate._id },
+            { authorName: candidate.username }
+          )
+          const token = jwt.sign(
+            {
+              user: {
+                email: candidate.useremail,
+                id: candidate._id,
+                name: candidate.username,
+              },
+            },
+            'jwt',
+            { expiresIn: 60 * 60 }
+          )
+          res.status(200)
+          res.json({
+            token: `Bearer ${token}`,
+            useremail: candidate.useremail,
+            userid: candidate._id,
+            username: candidate.username,
+            message: 'Работаем дальше!',
+          })
+        } catch (e) {
+          console.log(e)
+          res.status(500)
+          res.json({ message: e })
+        }
+      }
     }
-    res.status(200)
-    res.json({
-      token: req.headers.authorization,
-      user,
-      message: 'Работаем дальше!',
-    })
-  } catch (e) {
-    console.log(e)
-    res.status(500)
-    res.json({ message: e })
-  }
+  )
 }

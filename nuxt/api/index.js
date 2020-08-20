@@ -7,7 +7,6 @@ const session = require('express-session')
 const passport = require('passport')
 const app = express()
 
-// app.use(cors())
 mongoose
   .connect(`mongodb://localhost:27017/${keys.dbName}`, {
     useUnifiedTopology: true,

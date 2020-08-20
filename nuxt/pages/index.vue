@@ -118,8 +118,6 @@ import { mapState } from 'vuex'
 import FilmCard from '~/components/FilmCard.vue'
 import EmojiCard from '~/components/EmojiCard.vue'
 import TvProgramm from '~/components/TVProgramm.vue'
-
-// import newsList from '~/static/newsList.json'
 import tvProgrammList from '~/static/tvProgramm.json'
 
 export default {
@@ -148,21 +146,15 @@ export default {
       tab: null,
     }
   },
-  computed: {
-    // ...mapState(['films'])
-  },
-  updated() {
-    // this.filmList = this.films
-  },
+  computed: {},
+  updated() {},
   beforeCreate() {
     this.$store.dispatch('getFilms')
   },
   created() {},
   beforeMount() {},
 
-  mounted() {
-    // this.filmList = this.$store.state.films
-  },
+  mounted() {},
 
   methods: {},
 }

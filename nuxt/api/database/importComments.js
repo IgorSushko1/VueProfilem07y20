@@ -49,7 +49,7 @@ const commentSchema = new Schema({
   },
   filmLink: {
     type: String,
-    unique: true,
+    unique: false,
     required: true,
   },
   comment: {

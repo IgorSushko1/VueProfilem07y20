@@ -13,8 +13,6 @@
   &__form {
     width: auto;
     min-height: 110px;
-    // background: #e5251e23;
-    // opacity: 0.15;
     border-radius: 8px;
     border: none;
     color: black;
@@ -28,7 +26,6 @@
     width: 780px;
     min-height: 110px;
     background: #e5251e23;
-    // opacity: 0.15;
     border-radius: 8px;
     border: none;
     color: black;
@@ -40,7 +37,6 @@
   }
   &__delete-button {
     display: block;
-    // position: absolute;
     top: 0;
   }
 }
@@ -62,11 +58,8 @@
       ></v-textarea>
       <v-btn type="submit" color="success" class="comments__form-button ml-4">Опубликовать</v-btn>
     </v-form>
+
     <div v-else class="comments__auth-decline">Авторизуйтесь, чтобы добавить комментарий!</div>
-    <!-- {{сommentInfo}} -- длинна массива -->
-    {{this.$route.params.id}}
-    {{this.$store.state.user}}
-    <!-- {{this.$store.state.token}} -->
     <div v-if="commentInfo.length > 0">
       <v-card
         v-for="(comment, index) in commentInfo"
@@ -80,7 +73,12 @@
         </div>
 
         <v-card-actions class="comments__delete-button ma-0 pa-0">
-          <v-btn class="ma-0 pa-0" text>X</v-btn>
+          <v-btn
+            v-if="comment.authorName === thisUser"
+            class="ma-0 pa-0"
+            text
+            @click="deleteComment(comment)"
+          >X</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -89,23 +87,38 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   props: {
     commentInfo: {
-      type: Object,
+      type: Array,
       required: true,
       default: () => {
         return []
       },
+    },
+    thisUser: {
+      type: String,
+      required: false,
+      default: undefined,
     },
   },
   data() {
     return {
       autoGrow: true,
       newComment: '',
+      canDelete: false,
+      updatedUser: 0,
     }
   },
-  computed: {},
+  computed: {
+    ...mapState(['user']),
+    user() {
+      return this.$store.state.user
+    },
+  },
+  mounted() {},
   methods: {
     submit() {
       const answer = {
@@ -113,6 +126,9 @@ export default {
         filmLink: this.$route.params.id,
       }
       this.$emit('create-new-comment', answer)
+    },
+    deleteComment(comment) {
+      this.$emit('delete-comment', comment)
     },
   },
 }

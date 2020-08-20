@@ -45,7 +45,10 @@
             :single-line="singleLine"
             :dense="dense"
           ></v-text-field>
-          <div v-else class="text-h6 d-flex align-center justify-center">{{ this.name }}</div>
+          <div
+            v-else
+            class="text-h6 d-flex align-center justify-center"
+          >{{ this.$store.state.user }}</div>
         </v-card>
         <v-btn class="container__button" @click="LogoutUser">Выйти</v-btn>
       </div>
@@ -134,7 +137,9 @@ export default {
     async onClickOutside() {
       if (this.active) {
         await this.$store.dispatch('updateUserName', this.name)
-        this.$store.dispatch('getFromLocalStorage')
+        console.log(this.$route.params.id, '=== this.$route.params.id')
+        await this.$store.dispatch('getFromLocalStorage')
+        this.$nextTick(() => {})
       }
       this.active = false
     },

@@ -77,10 +77,6 @@ export default {
   },
   methods: {
     linkV() {
-      const lnk =
-        this.pageLink !== ''
-          ? `/aboutFilm/${this.pageLink}`
-          : `/aboutFilm/${this.pageLink}`
       this.$router.push(`/aboutFilm/${this.pageLink}`)
     },
   },

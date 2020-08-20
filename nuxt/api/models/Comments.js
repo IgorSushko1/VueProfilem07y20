@@ -11,11 +11,11 @@ const commentSchema = new Schema({
   authorName: {
     type: String,
     unique: false,
-    required: false,
+    required: true,
   },
   filmLink: {
     type: String,
-    unique: true,
+    unique: false,
     required: true,
   },
   comment: {

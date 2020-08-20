@@ -8,6 +8,7 @@ export const state = () => ({
   authenticated: false,
   registration: false,
   films: [],
+  film: {},
   comments: [],
 })
 export const mutations = {
@@ -32,12 +33,25 @@ export const mutations = {
     state.films = films
   },
 
+  SET_FILM(state, film) {
+    state.film = film
+  },
+
   SET_COMMENTS(state, comments) {
     state.comments = comments
   },
 }
 
 export const actions = {
+  getFromLocalStorage({ commit }) {
+    const token = window.localStorage.getItem('auth-token')
+    const name = window.localStorage.getItem('name')
+    if (token && name != null) {
+      commit('SET_USER_TOKEN', token)
+      commit('SET_USER', name)
+    }
+  },
+
   LogoutUser({ commit }) {
     window.localStorage.clear()
     commit('LOGOUT_USER')
@@ -45,12 +59,15 @@ export const actions = {
 
   loginUserv2({ commit }, loginInfo) {
     try {
+      console.log('loginInfo == ', loginInfo)
       axios
         .post('http://localhost:3000/api/login', loginInfo)
-        .then((res) => {
+        .then(async (res) => {
           window.localStorage.setItem('name', res.data.username)
           window.localStorage.setItem('email', res.data.useremail)
           window.localStorage.setItem('auth-token', res.data.token)
+          await commit('SET_USER', res.data.username)
+          await commit('SET_USER_TOKEN', res.data.token)
         })
         .catch((error) => console.log(error))
     } catch {
@@ -78,15 +95,6 @@ export const actions = {
     }
   },
 
-  getFromLocalStorage({ commit }) {
-    const token = window.localStorage.getItem('auth-token')
-    const name = window.localStorage.getItem('name')
-    if (token && name != null) {
-      commit('SET_USER_TOKEN', token)
-      commit('SET_USER', name)
-    }
-  },
-
   updateUserName({ commit }, name) {
     try {
       const user = {
@@ -95,12 +103,17 @@ export const actions = {
       }
       axios
         .post('http://localhost:3000/api/updateName', user, {
-          headers: { Authorization: window.localStorage.getItem('auth-token') },
+          headers: {
+            Authorization: window.localStorage.getItem('auth-token'),
+          },
         })
-        .then((res) => {
+        .then(async (res) => {
+          console.log('Успешно работает обновление', res.data)
+          window.localStorage.setItem('name', res.data.username)
+          window.localStorage.setItem('email', res.data.useremail)
           window.localStorage.setItem('auth-token', res.data.token)
-          window.localStorage.setItem('name', res.data.user.username)
-          window.localStorage.setItem('email', res.data.user.useremail)
+          await commit('SET_USER', res.data.username)
+          await commit('SET_USER_TOKEN', res.data.token)
         })
         .catch((error) => {
           console.log(error, 'Произошла ошибка регистрации')
@@ -110,9 +123,22 @@ export const actions = {
     }
   },
 
+  async getFilm({ commit }, id) {
+    try {
+      console.log('выполняется при перезагрузке страницы', { id })
+      await axios
+        .post('http://localhost:3000/api/films', { id })
+        .then((res) => {
+          commit('SET_FILM', res.data)
+        })
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
   async getFilms({ commit }) {
     try {
-      console.log('выполняется при перезагрузке страницы')
+      console.log(' getFilms выполняется при перезагрузке страницы')
       await axios.get('http://localhost:3000/api/films').then((res) => {
         commit('SET_FILMS', res.data)
       })
@@ -123,14 +149,15 @@ export const actions = {
 
   async getComments({ commit }, info) {
     try {
-      console.log('выполняется при перезагрузке страницы')
+      console.log(' getComments выполняется при перезагрузке страницы')
       console.log(this.state.token, ' какой токен отправляется')
 
       await axios
-        .post('http://localhost:3000/api/comments', { film: info })
+        .post('http://localhost:3000/api/comments', { filmLink: info })
         .then((res) => {
           commit('SET_COMMENTS', res.data)
         })
+        .then(() => {})
     } catch (error) {
       console.log(error)
     }
@@ -154,5 +181,18 @@ export const actions = {
     } catch (error) {
       console.log(error)
     }
+  },
+
+  async deleteComment({ commit }, comment) {
+    try {
+      await axios
+        .post('http://localhost:3000/api/comment/delete', comment, {
+          headers: { Authorization: this.state.token },
+        })
+        .then((res) => {
+          console.log(res.data, ' == response recive')
+          commit('SET_COMMENTS', res.data)
+        })
+    } catch (error) {}
   },
 }

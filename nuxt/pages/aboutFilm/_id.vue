@@ -2,9 +2,11 @@
   <div>
     <full-film-card v-if="getFilm()" :description-film="getFilm()" />
     <comments
-      v-if="getComments()"
-      :comment-info="getComments()"
+      :key="JSON.stringify(comments)"
+      :comment-info="comments"
+      :this-user="user"
       @create-new-comment="createNewComment"
+      @delete-comment="deleteComment"
     />
   </div>
 </template>
@@ -25,23 +27,31 @@ export default {
     return {}
   },
 
-  computed: { ...mapState(['films', 'comments']) },
+  computed: {
+    ...mapState(['film', 'comments', 'user']),
+    user() {
+      this.$store.dispatch('getComments', this.$route.params.id)
+      return this.$store.state.user
+    },
+    comments() {
+      return this.$store.state.comments
+    },
+  },
   created() {
-    this.$store.dispatch('getFilms')
+    this.$store.dispatch('getFilm', this.$route.params.id)
     this.$store.dispatch('getComments', this.$route.params.id)
   },
   mounted() {},
   methods: {
     getFilm() {
-      return this.$store.state.films.filter((el) => {
-        return el._id === this.$route.params.id
-      })[0]
+      return this.$store.state.film
     },
-    getComments() {
-      return this.$store.state.comments
-    },
+    getComments() {},
     createNewComment(answer) {
       this.$store.dispatch('createComment', answer)
+    },
+    deleteComment(comment) {
+      this.$store.dispatch('deleteComment', comment)
     },
   },
 }

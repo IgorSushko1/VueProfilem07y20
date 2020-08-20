@@ -8,8 +8,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// import { mapState } from 'vuex'
 import userAuthForm from '~/components/UserAuthForm.vue'
 
 export default {
@@ -23,8 +21,9 @@ export default {
   },
   methods: {
     async loginUser(userInfo) {
-      this.$router.push('/')
       await this.$store.dispatch('loginUserv2', userInfo)
+
+      this.$router.push('/')
     },
   },
 }

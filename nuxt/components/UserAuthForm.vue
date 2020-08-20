@@ -1,5 +1,5 @@
 <template>
-  <v-form v-model="valid" @submit="sendInfo">
+  <v-form v-model="valid" @submit.prevent="sendInfo">
     <v-text-field
       v-if="typeOfForm === 'registration'"
       v-model="userInfo.name"
@@ -80,7 +80,6 @@ export default {
     },
     setButton() {
       if (this.typeOfForm === 'login') {
-        // this.LoginUser(this.userInfo)
       } else if (this.typeOfForm === 'registration') {
       }
     },
