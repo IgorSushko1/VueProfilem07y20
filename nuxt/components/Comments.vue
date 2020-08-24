@@ -1,46 +1,56 @@
-<style lang="scss" scoped>
-.comments {
-  border: none;
-  width: 840px;
 
-  &__text {
-    width: 780px;
-    min-height: 110px;
-    background: #f2f2f2;
-    border-radius: 8px;
-    border: none;
-  }
-  &__form {
-    width: auto;
-    min-height: 110px;
-    border-radius: 8px;
-    border: none;
-    color: black;
-  }
-  &__auth-decline {
-    width: 780px;
-    min-height: 110px;
-    background: #e5251e23;
-  }
-  &__form-textarea {
-    width: 780px;
-    min-height: 110px;
-    background: #e5251e23;
-    border-radius: 8px;
-    border: none;
-    color: black;
-  }
-  &__form-button {
-    background: #e5251e !important;
-    text-transform: capitalize;
-    font-size: 16px;
-  }
-  &__delete-button {
-    display: block;
-    top: 0;
-  }
+<script>
+import { mapState } from 'vuex'
+
+export default {
+    props: {
+        commentInfo: {
+            type: Array,
+            required: true,
+            default: () => {
+                return []
+            },
+        },
+        thisUser: {
+            type: String,
+            required: false,
+            default: undefined,
+        },
+    },
+    emits: {
+        'create-new-comment': null,
+        'delete-comment': null,
+    },
+    data() {
+        return {
+            autoGrow: true,
+            newComment: '',
+            canDelete: false,
+            updatedUser: 0,
+        }
+    },
+    computed: {
+        ...mapState(['user']),
+        user() {
+            return this.$store.state.user
+        },
+    },
+    afterMounted() {},
+    mounted() {},
+    methods: {
+        submit() {
+            const answer = {
+                comment: this.newComment,
+                filmLink: this.$route.params.id,
+            }
+            this.$emit('create-new-comment', answer)
+        },
+        deleteComment(comment) {
+            this.$emit('delete-comment', comment)
+        },
+    },
 }
-</style>
+</script>
 
 <template>
   <div>
@@ -55,11 +65,15 @@
         v-model="newComment"
         class="comments__form-textarea form-control pa-4 pb-0"
         :auto-grow="autoGrow"
-      ></v-textarea>
-      <v-btn type="submit" color="success" class="comments__form-button ml-4">Опубликовать</v-btn>
+      />
+      <v-btn type="submit" color="success" class="comments__form-button ml-4">
+        Опубликовать
+      </v-btn>
     </v-form>
 
-    <div v-else class="comments__auth-decline">Авторизуйтесь, чтобы добавить комментарий!</div>
+    <div v-else class="comments__auth-decline">
+      Авторизуйтесь, чтобы добавить комментарий!
+    </div>
     <div v-if="commentInfo.length > 0">
       <v-card
         v-for="(comment, index) in commentInfo"
@@ -78,58 +92,63 @@
             class="ma-0 pa-0"
             text
             @click="deleteComment(comment)"
-          >X</v-btn>
+          >
+            X
+          </v-btn>
         </v-card-actions>
       </v-card>
     </div>
-    <div v-else class="d-flex">Ваш комментарий будет первым!</div>
+    <div v-else class="d-flex">
+      Ваш комментарий будет первым!
+    </div>
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex'
 
-export default {
-  props: {
-    commentInfo: {
-      type: Array,
-      required: true,
-      default: () => {
-        return []
-      },
-    },
-    thisUser: {
-      type: String,
-      required: false,
-      default: undefined,
-    },
-  },
-  data() {
-    return {
-      autoGrow: true,
-      newComment: '',
-      canDelete: false,
-      updatedUser: 0,
+<style lang="scss" scoped>
+.comments {
+    border: none;
+    width: 840px;
+
+    &__text {
+        width: 780px;
+        min-height: 110px;
+        background: #f2f2f2;
+        border-radius: 8px;
+        border: none;
     }
-  },
-  computed: {
-    ...mapState(['user']),
-    user() {
-      return this.$store.state.user
-    },
-  },
-  mounted() {},
-  methods: {
-    submit() {
-      const answer = {
-        comment: this.newComment,
-        filmLink: this.$route.params.id,
-      }
-      this.$emit('create-new-comment', answer)
-    },
-    deleteComment(comment) {
-      this.$emit('delete-comment', comment)
-    },
-  },
+    &__form {
+        width: auto;
+        min-height: 110px;
+        border-radius: 8px;
+        border: none;
+        color: black;
+    }
+    &__auth-decline {
+        width: 840px;
+        text-align: center;
+        padding-top: 4%;
+        min-height: 110px;
+        background: #e5251e23;
+    }
+    &__form-textarea {
+        width: 780px;
+        min-height: 110px;
+        background: #e5251e23;
+        border-radius: 8px;
+        border: none;
+        color: black;
+    }
+
+    &__form-button {
+        background: #e5251e !important;
+        text-transform: capitalize;
+        font-size: 16px;
+    }
+    &__delete-button {
+        display: block;
+        top: 0;
+    }
 }
-</script>
+</style>
+

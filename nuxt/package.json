@@ -38,16 +38,17 @@
         "eslint-config-prettier": "^6.11.0",
         "eslint-plugin-nuxt": "^1.0.0",
         "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-vue": "^7.0.0-beta.2",
         "express-session": "^1.17.1",
         "jsonwebtoken": "^8.5.1",
         "mongoose": "^5.9.27",
         "nodemon": "^2.0.4",
         "passport": "^0.4.1",
         "prettier": "^2.0.5",
-        "webpack": "^4.44.1",
-        "webpack-cli": "^3.3.12",
         "vue": "^2.6.12",
         "vue-server-renderer": "^2.6.12",
-        "vue-template-compiler": "^2.6.12"
+        "vue-template-compiler": "^2.6.12",
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
     }
 }

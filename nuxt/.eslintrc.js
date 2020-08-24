@@ -8,11 +8,10 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript',
     'prettier',
     'prettier/vue',
-
     'plugin:nuxt/recommended',
+    'plugin:vue/vue3-recommended',
   ],
   plugins: ['prettier'],
-
   rules: {
     quotes: ['error', 'single'],
     'object-curly-newline': [
@@ -31,4 +30,4 @@ module.exports = {
       },
     ],
   },
-}
+};

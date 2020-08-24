@@ -46,7 +46,7 @@
   <v-card class="d-flex programm programm__no-border" outlined>
     <v-container class="programm__image">
       <v-col class="programm__flex-container">
-        <img :src="tvImage" :alt="'логотип ' + tvChannelName" />
+        <img :src="tvImage" :alt="tvChannelName" />
       </v-col>
     </v-container>
     <div>
@@ -77,7 +77,7 @@
 
 <script>
 export default {
-  props: {
+             props: {
     tvChannelName: {
       type: String,
       required: true,
@@ -92,9 +92,7 @@ export default {
     },
   },
   data() {
-    return {
-      indexForClass: 0,
-    }
+    return {indexForClass: 0,}
   },
   computed: {
     tvImage() {

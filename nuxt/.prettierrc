@@ -1,7 +1,0 @@
-{
-  "semi": false,
-  "singleQuote": true,
-  "endOfLine": "auto",
-  "vueIndentScriptAndStyle": false,
-  "parser": "flow"
-}

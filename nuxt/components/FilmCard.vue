@@ -1,6 +1,7 @@
 <style lang="scss">
 .film-card {
   border: none !important;
+
 }
 </style>
 <template>
