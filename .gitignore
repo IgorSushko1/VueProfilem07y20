@@ -3,3 +3,4 @@ test-task-frontend (junior).fig
 test-task-frontend (middle).fig
 img
 node_modules
+.vscode
