@@ -53,8 +53,8 @@ export default {
 </script>
 
 <template>
-  <div>
-    <h2>Комментарии</h2>
+  <div class="comments__container">
+    <h2 class="comments__header">Комментарии</h2>
     <v-form
       v-if="this.$store.state.user"
       ref="form"
@@ -74,7 +74,8 @@ export default {
     <div v-else class="comments__auth-decline">
       Авторизуйтесь, чтобы добавить комментарий!
     </div>
-    <div v-if="commentInfo.length > 0">
+    <div class="comments__comments-list"
+     v-if="commentInfo.length > 0">
       <v-card
         v-for="(comment, index) in commentInfo"
         :key="index"
@@ -98,9 +99,9 @@ export default {
         </v-card-actions>
       </v-card>
     </div>
-    <div v-else class="d-flex">
+    <h2 v-else class="comments__header">
       Ваш комментарий будет первым!
-    </div>
+    </h2>
   </div>
 </template>
 
@@ -110,6 +111,16 @@ export default {
     border: none;
     width: 840px;
 
+    &__container {
+        display: flex;
+    flex-direction: column;
+    }
+
+    &__header {
+        text-align: center;
+    margin: 25px 0px 10px;
+    }
+
     &__text {
         width: 780px;
         min-height: 110px;
@@ -117,8 +128,10 @@ export default {
         border-radius: 8px;
         border: none;
     }
+
     &__form {
-        width: auto;
+        width: 1012px;
+        place-self: flex-end;
         min-height: 110px;
         border-radius: 8px;
         border: none;
@@ -126,6 +139,7 @@ export default {
     }
     &__auth-decline {
         width: 840px;
+        align-self: center;
         text-align: center;
         padding-top: 4%;
         min-height: 110px;
@@ -144,6 +158,11 @@ export default {
         background: #e5251e !important;
         text-transform: capitalize;
         font-size: 16px;
+    }
+
+    &__comments-list {
+        align-self: center;
+        margin-bottom: 25px;
     }
     &__delete-button {
         display: block;

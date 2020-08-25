@@ -1,6 +1,6 @@
 
 <template>
-  <v-card class="mx-2 mb-12 container" :style="chooseColor" link>
+  <v-card class=" mb-12 container" :style="chooseColor" link>
     <img :src="chooseSmile" alt class="container__image">
     <p class="container__text">
       {{ emojiDescription }}

@@ -21,5 +21,6 @@
 .description {
   margin: 0 10px;
   font-size: 20px;
+  text-decoration: none;
 }
 </style>

@@ -4,5 +4,6 @@ const router = express.Router()
 
 router.get('/films', controller.getFilms)
 router.post('/films', controller.getFilm)
+router.post('/films/find', controller.findFilms)
 
 module.exports = router
