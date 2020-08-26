@@ -39,7 +39,7 @@ export const mutations = {
   },
 
   SET_COMMENTS(state, comments) {
-    state.comments = comments;
+    state.comments = comments.reverse();
   },
 
   SEARCH_RESPONSE(state, searchResponse) {
