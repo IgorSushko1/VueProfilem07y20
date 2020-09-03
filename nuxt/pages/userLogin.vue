@@ -1,11 +1,4 @@
-<style lang="scss" scoped></style>
 
-<template>
-  <v-container>
-    <user-auth-form type-of-form="login" button-text="Войти" @login="loginUser" />
-    <div>{{this.$store.state.token}}</div>
-  </v-container>
-</template>
 
 <script>
 import userAuthForm from '~/components/UserAuthForm.vue'
@@ -28,3 +21,12 @@ export default {
   },
 }
 </script>
+
+
+<template>
+  <v-container>
+    <user-auth-form type-of-form="login" button-text="Войти" @login="loginUser" />
+    <div>{{ this.$store.state.token }}</div>
+  </v-container>
+</template>
+<style lang="scss" scoped></style>

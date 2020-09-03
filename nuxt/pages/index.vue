@@ -13,7 +13,6 @@ export default {
     TvProgramm,
   },
   layout: 'default',
-
   data() {
     return {
       name: 'World',
@@ -39,11 +38,10 @@ export default {
   },
   created() {},
   beforeMount() {},
-
   mounted() {},
-
   methods: {},
 };
+
 </script>
 
 <template>
@@ -65,9 +63,9 @@ export default {
       <v-tab-item>
         <v-card flat>
           <v-row class="mt-6">
-            <span class="index-movie__header text font-weight-bold"
-              >🔥 Новинки</span
-            >
+            <span
+              class="index-movie__header text font-weight-bold"
+            >🔥 Новинки</span>
           </v-row>
           <v-row class="ma-0 pa-0">
             <film-card

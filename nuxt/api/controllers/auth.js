@@ -83,15 +83,13 @@ module.exports.updateName = function (req, res, next) {
       if (e) {
       } else {
         try {
-          let user = await User.findOneAndUpdate(
+          const user = await User.findOneAndUpdate(
             { useremail: req.body.useremail },
             { username: req.body.username },
             { useFindAndModify: false }
           )
 
-          const candidate = await User.findOne({
-            useremail: req.body.useremail,
-          })
+          const candidate = await User.findOne({useremail: req.body.useremail,})
           await Comments.updateMany(
             { authorLink: candidate._id },
             { authorName: candidate.username }

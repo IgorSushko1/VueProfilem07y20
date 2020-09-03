@@ -23,7 +23,9 @@
       @click:append="showPassword = !showPassword"
     />
 
-    <v-btn type="submit" :disabled="!valid" @click="setButton">{{ buttonText }}</v-btn>
+    <v-btn type="submit" :disabled="!valid" @click="setButton">
+      {{ buttonText }}
+    </v-btn>
 
     <div v-if="typeOfForm === 'login'">
       <nuxt-link to="/userRegistration">

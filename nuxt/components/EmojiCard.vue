@@ -1,4 +1,3 @@
-
 <template>
   <v-card class=" mb-12 container" :style="chooseColor" link>
     <img :src="chooseSmile" alt class="container__image">

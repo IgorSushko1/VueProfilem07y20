@@ -17,11 +17,11 @@ import FullFilmCard from '~/components/FullFilmCard.vue'
 import Comments from '~/components/Comments.vue'
 
 export default {
-  layout: 'default',
   components: {
     FullFilmCard,
     Comments,
   },
+  layout: 'default',
 
   data() {
     return {}

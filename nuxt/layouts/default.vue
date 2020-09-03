@@ -1,3 +1,28 @@
+<script>
+import HeaderV from '~/components/Header.vue';
+import FooterV from '~/components/Footer.vue';
+
+export default {
+  components: {
+    HeaderV,
+    FooterV,
+  },
+  data() {
+    return {};
+  },
+};
+</script>
+
+<template>
+  <v-app>
+    <div class="basis">
+      <header-v class="mx-auto basis__header" />
+      <nuxt class="basis__main" />
+    </div>
+    <footer-v class="mx-auto basis__footer" />
+  </v-app>
+</template>
+
 <style lang="scss" scoped>
 html,
 body {
@@ -20,28 +45,3 @@ body {
   }
 }
 </style>
-
-<template>
-  <v-app>
-    <div class="basis">
-      <header-v class="mx-auto basis__header" />
-      <nuxt class="basis__main" />
-    </div>
-    <footer-v class="mx-auto basis__footer" />
-  </v-app>
-</template>
-
-<script>
-import HeaderV from '~/components/Header.vue'
-import FooterV from '~/components/Footer.vue'
-
-export default {
-  components: {
-    HeaderV,
-    FooterV,
-  },
-  data() {
-    return {}
-  },
-}
-</script>

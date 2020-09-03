@@ -1,3 +1,21 @@
+<script>
+import userAuthForm from '~/components/UserAuthForm.vue';
+
+export default {
+  components: { userAuthForm },
+  data() {
+    return {};
+  },
+  mounted() {},
+  methods: {
+    registerUser(userInfo) {
+      this.$store.dispatch('registerUserv2', userInfo);
+      this.$router.push('/userLogin');
+    },
+  },
+};
+</script>
+
 <template>
   <div>
     <div>
@@ -9,21 +27,3 @@
     </div>
   </div>
 </template>
-
-<script>
-import userAuthForm from '~/components/UserAuthForm.vue'
-
-export default {
-  components: { userAuthForm },
-  data() {
-    return {}
-  },
-  mounted() {},
-  methods: {
-    registerUser(userInfo) {
-      this.$store.dispatch('registerUserv2', userInfo)
-      this.$router.push('/userLogin')
-    },
-  },
-}
-</script>

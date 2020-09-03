@@ -54,7 +54,9 @@ export default {
 
 <template>
   <div class="comments__container">
-    <h2 class="comments__header">Комментарии</h2>
+    <h2 class="comments__header">
+      Комментарии
+    </h2>
     <v-form
       v-if="this.$store.state.user"
       ref="form"
@@ -74,8 +76,10 @@ export default {
     <div v-else class="comments__auth-decline">
       Авторизуйтесь, чтобы добавить комментарий!
     </div>
-    <div class="comments__comments-list"
-     v-if="commentInfo.length > 0">
+    <div
+      v-if="commentInfo.length > 0"
+      class="comments__comments-list"
+    >
       <v-card
         v-for="(comment, index) in commentInfo"
         :key="index"

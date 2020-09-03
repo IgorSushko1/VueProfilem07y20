@@ -1,16 +1,19 @@
 {
-  "prettier.vueIndentScriptAndStyle": true,
-  "prettier.endOfLine": "auto",
-  "prettier.requireConfig": true,
-  "prettier.requirePragma": true,
-  "prettier.singleQuote": true,
-  "prettier.semi": false,
-  "prettier.useEditorConfig": false,
-  "vetur.format.defaultFormatter.ts": "prettier-tslint",
-  "prettier.disableLanguages": [
-    "ts"
-  ],
+    "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+},
   "eslint.format.enable": true,
   "eslint.lintTask.enable": true,
-  "eslint.alwaysShowStatus": true
+  "eslint.alwaysShowStatus": true,
+"editor.fontSize": 17,
+"editor.detectIndentation": false,
+"prettier.tabWidth": 4,
+"prettier.jsxSingleQuote": true,
+"editor.formatOnPaste": true,
+"vetur.format.options.tabSize": 4,
+"trailing-spaces.trimOnSave": true,
+"prettier.singleQuote": true,
+"typescript.preferences.quoteStyle": "single",
+"prettier.vueIndentScriptAndStyle": true,
+"javascript.preferences.quoteStyle": "single"
 }

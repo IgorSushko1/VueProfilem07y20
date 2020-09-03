@@ -27,7 +27,7 @@ module.exports.findFilms = async function (req, res, next) {
   try {
     const num = req.body.filmName.charCodeAt(0);
     const strRegexp = '^' + req.body.filmName;
-    const str = new RegExp(strRegexp, 'i');
+    const str = await new RegExp(strRegexp, 'i');
     let films;
 
     if (num >= 65 && num < 123) {

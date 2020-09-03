@@ -1,7 +1,9 @@
 <template>
   <div class="container">
-    <img class="VuetifyLogo" alt="Vuetify Logo" src="/sign.png" />
-    <p class="description ma-0 ml-2">Видеосервис</p>
+    <img class="VuetifyLogo" alt="Vuetify Logo" src="/sign.png">
+    <p class="description ma-0 ml-2">
+      Видеосервис
+    </p>
   </div>
 </template>
 

@@ -30,9 +30,7 @@ const data = [{
 ]
 
 const commentSchema = new Schema({
-    fullName: {
-        type: String,
-    },
+    fullName: {type: String,},
     authorLink: {
         type: String,
         unique: false,
